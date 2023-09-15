@@ -1,0 +1,25 @@
+Bis Daher: 
+The student_maanger has all the users of the system. 
+The doctor_manager has all the doctors of the system. 
+the course_manager has all the doctors of the system. 
+
+Every doctor is a user 
+Every student is a user 
+
+Every user has a list of course_ids 
+The course doesn't know about his registered students. 
+
+The system has 2 views: doctor_view and student_view 
+
+You should enable the user to register or log in. if he's a doctor then he got a doctor view. if he's a student then he got a student view. 
+
+student_view has student_manager as a member variable. 
+doctor_view has doctor_manager as a member variable. 
+
+The views are responsible to communcate with the managers to update and show the desired infos. 
+
+The 2 views have the course manager to know ht e information about the desired courses. 
+
+the managers should provide the basic functionalties to handle the desires of the corresponding views. 
+
+If the doctor add a new assignemnt to the course, then There should be an assignment for every student enrolled in this course. 
