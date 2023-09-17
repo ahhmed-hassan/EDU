@@ -7,16 +7,16 @@ code(code),doctorUsername(docUsername),doc_name(docName),name(name)
 {
 }
 
-std::string Course::StudentDetailedString() const
+std::string Course::StudentDetailedString(std::string_view studentUsername) const
 {
 	std::ostringstream res{};
 	res << "Course " << name << " With Code " << code<<
 		" taught by Doctor " << doc_name << " has " <<
-		assignments.size() + 1 << " Assignments:\n";
+		courseAssignments.size() + 1 << " Assignments:\n";
 
 	int i{ 1 };
 
-	for (const auto& assignment : assignments)
+	for (const auto& assignment : get_user_assignments(studentUsername))
 		res << "Assignment " << i++ <<" "<< assignment.StudentString() << '\n';
 
 	return std::move(res.str());
@@ -32,9 +32,21 @@ std::string Course::OverviewString() const
 	return std::move(res);
 }
 
-std::vector<Assignment> const& Course::get_assignments() const
+
+std::vector<std::string> Course::get_assignments_contents() const
 {
-	return assignments;
+	auto AssignmentContents = courseAssignments | std::views::transform([](const CourseAssignment& courseAss) {return courseAss.get_content(); });
+	return std::vector<std::string>(AssignmentContents.begin(), AssignmentContents.end());
+}
+
+std::vector<Assignment> const& Course::get_assignments(const int courseAssignmentPos) const
+{
+	return courseAssignments[courseAssignmentPos].get_assignments();
+}
+
+std::vector<CourseAssignment> const& Course::get_course_assignments() const
+{
+	return courseAssignments;
 }
 
 //int Course::GetId() const
@@ -47,51 +59,53 @@ std::string const Course::get_code() const
 	return code;
 }
 
-void Course::addAssigment( Assignment&& assign)
+void Course::add_courseAssignment(std::string_view content, const int totalPoints, std::vector<std::string> studentnamesAtThisCourse)
 {
-	assignments.push_back(assign);
-	//Every assignment has it's position in the vector as an ID. 
-	assignments.back().set_id((int)assignments.size() - 1);
+	courseAssignments.emplace_back(CourseAssignment(content, totalPoints, studentnamesAtThisCourse));
 }
 
-void Course::add_empty_assignment_for_student(std::string_view studentName)
+//void Course::addAssigment( Assignment&& assign)
+//{
+//	assignments.push_back(assign);
+//	//Every assignment has it's position in the vector as an ID. 
+//	assignments.back().set_id((int)assignments.size() - 1);
+//}
+
+void Course::add_empty_assignment_for_new_student(std::string_view studentName)
 {
-	if (assignments.empty())
+	if (courseAssignments.empty())
 		return;
-	auto exampleAsssignment = assignments[0];
-	Assignment ass(exampleAsssignment.get_content(), exampleAsssignment.get_total());
-	addAssigment(std::move(ass));
+
+	for (auto& courseAssi : courseAssignments | std::views::all)
+		courseAssi.add_student_entry(studentName);
 
 }
 
-
-
-void Course::make_enum_based_action_on_assignment(const Assignment& assignment, std::string_view actionContent, AssignmentAction const& actionType)
+std::vector<Assignment> Course::get_user_assignments(std::string_view studentUsername) const
 {
-	auto myAssignmentIterator = std::find( assignments.begin(),assignments.end(), assignment);
-	auto pos = myAssignmentIterator - assignments.begin();
-	auto& searchedAssignment = assignments[pos];
-	switch (actionType)
-	{
-	case AssignmentAction::addFeedback:
-		searchedAssignment.set_feedback(actionContent); break;
-	case AssignmentAction::addSolution:
-		searchedAssignment.set_solution(actionContent); break;
-	case AssignmentAction::addDegree:
-		searchedAssignment.set_grade(actionContent); break;
-	default:
-		break;
-	}
+	auto studentAssignments= courseAssignments | std::views::all |
+		std::views::transform([&](const CourseAssignment& courseAssignment) {return courseAssignment.get_student_assigment(studentUsername); });
+	return std::vector<Assignment>(studentAssignments.begin(), studentAssignments.end());
 }
 
-void Course::remove_assignment(const Assignment& assignment)
+
+
+void Course::make_enum_based_action_on_assignment(CourseAssignment const& courseAssingment,const Assignment& assignment, std::string_view actionContent, AssignmentAction const& actionType)
 {
-	auto const assignmentIterator=std::find(assignments.begin(), assignments.end(), assignment);
-	//auto assPos = assignmentIterator - assignments.begin();
-	//auto it = assignmentIterator + assignments.begin();
-	assignments.erase(assignmentIterator);
 
+	auto courseAssignmentIterator = std::ranges::find(courseAssignments, courseAssingment);
+	courseAssignmentIterator->make_enum_based_action_on_assignment(assignment, actionContent, actionType);
+	
 }
+
+//void Course::remove_assignment(const Assignment& assignment)
+//{
+//	auto const assignmentIterator=std::find(assignments.begin(), assignments.end(), assignment);
+//	//auto assPos = assignmentIterator - assignments.begin();
+//	//auto it = assignmentIterator + assignments.begin();
+//	assignments.erase(assignmentIterator);
+//
+//}
 
 //void Course::RemoveStudent(int student_id)
 //{

@@ -49,11 +49,11 @@ std::string Assignment::StudentString() const
 std::string Assignment::doctor_Overview() const
 {
 	std::ostringstream res{};
-	res << "Assignment:\n" << content << "\nby student : " << studentName << " is ";
+	res << "Student : " << studentName << " has ";
 	if (not submitted)
 		res << "not ";
 	res << "submitted";
-	res << "ans has the grade ";
+	res << "and has the grade ";
 
 	if (grade.has_value())
 		res << grade.value();

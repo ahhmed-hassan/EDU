@@ -19,13 +19,17 @@ public:
 
 	 void make_enum_based_action_on_course_assignment(
 		 Course const& course,
+		 CourseAssignment const& courseAssingment,
 		 Assignment const& assignment, 
 		 std::string_view action_content, 
 		 const AssignmentAction& actionType
 	 );
+
+	 std::string get_detailed_string_for_course();
+
 	 void remove_assignment_from_course(Course const& course, Assignment const& assignment);
 
-	 void add_course_assignments_for_student(std::string_view courseCode, std::string_view studentName);
+	 void add_course_assignments_for_new_student(std::string_view courseCode, std::string_view studentName);
 
 	 std::optional<std::string> get_course_overview(std::string_view courseCode) const;
 

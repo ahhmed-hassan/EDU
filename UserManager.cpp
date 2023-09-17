@@ -72,6 +72,11 @@ void UserManager::register_in_course(std::string_view courseCode)
 	current_user.get().register_in_course(courseCode);
 }
 
+std::string UserManager::get_current_user_username() const
+{
+	return GetCurrentUser().get_username();
+}
+
 vector<std::string> const& UserManager::get_students_names_enrolled_at_course(Course const& course) const
 {
 	// TODO: insert return statement here

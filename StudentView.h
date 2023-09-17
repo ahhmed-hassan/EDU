@@ -17,7 +17,8 @@ public:
 	void ListCourses();
 	void ViewCourses(); 
 	void RegisterInCourse();
-	void SubListCourses(std::vector<Course> const& courses);
+	//At this point I already know the courses belongs to the same user
+	void SubListCourses();
 	void Unregister(int course_id, User& student_id);
 	void CourseChoices(Course*);
 	void GradesReport();

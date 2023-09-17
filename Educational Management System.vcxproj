@@ -130,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="Assignment.cpp" />
     <ClCompile Include="Course.cpp" />
+    <ClCompile Include="CourseAssignment.cpp" />
     <ClCompile Include="CourseManager.cpp" />
     <ClCompile Include="Doctor.cpp" />
     <ClCompile Include="DoctorManager.cpp" />
@@ -145,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="Assignment.h" />
     <ClInclude Include="Course.h" />
+    <ClInclude Include="CourseAssignment.h" />
     <ClInclude Include="CourseManager.h" />
     <ClInclude Include="Doctor.h" />
     <ClInclude Include="DoctorManager.h" />

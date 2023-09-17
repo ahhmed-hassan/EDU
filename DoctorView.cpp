@@ -38,14 +38,14 @@ void DoctorView:: ViewCourses()
 	while(true)
 	{
 		//should it be put here or before the while loop?
-		auto const& courses_objects = courses->getUserCourses(users->GetCurrentUser());
+		auto const& doctorCourses = courses->getUserCourses(users->GetCurrentUser());
 		int i = 1;
-		for (const auto& course : courses_objects)
+		for (const auto& course : doctorCourses)
 		{
 			cout << i << "- " << course.OverviewString() << "\n";
 		}
 		std::cout << "choose course num or 0 to go back\n";
-		int courseChoice = ReadInt(0, (int)courses_objects.size()) - 1;
+		int courseChoice = ReadInt(0, (int)doctorCourses.size()) - 1;
 
 		if (courseChoice < 0)
 			return;
@@ -54,10 +54,10 @@ void DoctorView:: ViewCourses()
 		switch (choice2)
 		{
 		case 1:
-			ShowAssigments(courses_objects[courseChoice]);
+			ShowAssigments(doctorCourses[courseChoice]);
 			return ViewCourses();
 		case 2:
-			AddAssignment(courses_objects[courseChoice]);
+			AddAssignment(doctorCourses[courseChoice]);
 			return ViewCourses();
 		default:
 			break;
@@ -70,20 +70,21 @@ void DoctorView::ShowAssigments(Course const & course)
 {
 	while(true)
 	{
-		const auto& assignments = course.get_assignments();
-		int i = 0;
-		for (const auto& assignemnt : assignments)
-		{
-			std::cout << ++i << "- " << assignemnt.doctor_Overview() << std::endl;
-		}
-		std::cout << "Choose the ith Assignment [1-" << assignments.size() << "]\n";
+	//	const auto& assignments = course.get_assignments();
+		auto courseAssignments = course.get_course_assignments();
+		//auto assignmentContents = course.get_assignments_contents();
+		int j = 0; 
+		for (const auto& courseAssignment : courseAssignments)
+			std::cout << ++j << "- Assignment has content: " << courseAssignment.get_content() << "\n";
+	
+		std::cout << "Choose the ith Assignment [1-" << courseAssignments.size() << "]\n";
 		std::cout << "or 0 to go back";
-		int choice = ReadInt(0, (int)assignments.size() - 1) - 1;
+		int choice = ReadInt(0, (int)courseAssignments.size() - 1) - 1;
 
 		if (choice < 0)
 			return;
 
-		return assignment_subList_from_course(course, choice);
+		return course_assignment_subList_from_course(course, courseAssignments[choice]);
 	}
 
 
@@ -101,37 +102,58 @@ void DoctorView::AddAssignment(Course course)
 	courses->addAssignemntToCourse(course, assigmentContent, points,users->GetCurrentUser().get_name(),studentnamesEnrolledAtThisCourse);
 }
 
-void DoctorView::assignment_subList_from_course(Course const& course, int choice)
+void DoctorView::course_assignment_subList_from_course(Course const& course, CourseAssignment const& courseAssingment)
 {
 	while (true)
 	{
-		const auto& assignments = course.get_assignments();
-	
-		std::cout << assignments[choice - 1].doctor_detailed_view()<<endl;
-	
-		int assignmentMenuChoice = ShowReadMenu({ "Add Feedback","Add Degree","Return" });
-		std::string actionContent;
-	
-			switch (assignmentMenuChoice)
-			{
-			case 1:
-			{
-				std::cout << "Enter your Feedback: \n"; cin >> actionContent;
+		//const auto& assignments = course.get_assignments();
+		const auto assignments = courseAssingment.get_assignments();
+		//const auto& assignmentss = course.get_assignments(choice);
+		int count = 0;
+		for (const auto& assignment : assignments)
+			std::cout <<++count<<"- "<< assignment.doctor_Overview() << "\n";
 
-				break;
-			}
-			case 2:
-			{
-				std::cout << "Enter your Degree: \n"; cin >> actionContent;
-				break;
-			}
+		std::cout << "choose the ith assignment or 0 to cancel";
+		int assignmentChoice = ReadInt(0, (int)assignments.size()) -1;
+		if (assignmentChoice < 0)
+			return;
+		return assignment_sublist(course,courseAssingment, assignments[assignmentChoice]);
 
-			default:
-				return;
-			}
-			courses->make_enum_based_action_on_course_assignment(course,assignments[choice - 1], actionContent, AssignmentAction::addFeedback);
+		//std::cout << assignments[choice - 1].doctor_detailed_view()<<endl;
+	
 	}
 
+}
+void DoctorView::assignment_sublist(Course const& course, CourseAssignment const& courseAssingment, Assignment const& assignment)
+{
+	while (true)
+	{
+		int assignmentMenuChoice = ShowReadMenu({ "Add Feedback","Add Degree","Return" });
+		std::string actionContent;
+
+		switch (assignmentMenuChoice)
+		{
+		case 1:
+		{
+			std::cout << "Enter your Feedback: \n"; cin >> actionContent;
+			courses->make_enum_based_action_on_course_assignment(course,courseAssingment ,assignment, actionContent, AssignmentAction::addFeedback);
+
+			break;
+		}
+		case 2:
+		{
+			std::cout << "Enter your Degree: \n"; cin >> actionContent;
+			courses->make_enum_based_action_on_course_assignment(course,courseAssingment,assignment, actionContent, AssignmentAction::addDegree);
+
+			break;
+		}
+
+		default:
+			return;
+		}
+		//courses->make_enum_based_action_on_course_assignment(course, assignment, actionContent, AssignmentAction::addFeedback);
+
+	}
 }
 void DoctorView:: AddCourses(){}
 //Userless comment

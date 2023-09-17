@@ -60,7 +60,7 @@ void StudentView::ListCourses()
 		std::cout << ++i<<"- "<<course.OverviewString() << endl;
 		
 	std::cout << endl; 
-	return SubListCourses(user_courses);
+	return SubListCourses();
 
 }
 
@@ -75,16 +75,19 @@ void StudentView::RegisterInCourse()
 	std::cout << "Your chosen course\n" << courseOverview.value() << "\n"; 
 
 	users->register_in_course(code);
-
+	courses->add_course_assignments_for_new_student(code, users->get_current_user_username());
 	std::cout << "You are enrolled in the course";
 
 }
 
-void StudentView::SubListCourses(std::vector<Course>const& courses)
+void StudentView::SubListCourses()
 {
-	std::cout << "Choose the ith  [1" << courses.size()  << "] Course to view\n";
-	int choice = ReadInt(1, (int)courses.size() );
-	std::cout << courses[choice - 1].StudentDetailedString() << endl;
+	auto userCourses = courses->getUserCourses(users->GetCurrentUser());
+
+	std::cout << "Choose the ith  [1" << userCourses.size()  << "] Course to view\n";
+	int choice = ReadInt(1, (int)userCourses.size() );
+	std::string courseDetailedString{};
+	std::cout << userCourses[choice - 1].StudentDetailedString(users->get_current_user_username()) << endl;
 
 
 }

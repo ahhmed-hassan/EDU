@@ -26,6 +26,7 @@ public:
 	void Unregister(int course_id, User& user);
 	const User& GetCurrentUser() const;
 	void register_in_course(std::string_view courseCode);
+	std::string get_current_user_username() const; 
 
 	vector<std::string> GetCurrentUserCourses() const; 
 	vector<std::string>const& get_students_names_enrolled_at_course(Course const& course) const;

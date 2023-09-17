@@ -13,14 +13,19 @@ void CourseManager::SubmitSolution(int course_id, std::string_view solution)
 //	courses_map[assignment.get_courseId()].remove_assignment(assignment);
 //}
 
-void CourseManager::make_enum_based_action_on_course_assignment(Course const& course,Assignment const& assignment, std::string_view action_content, const AssignmentAction& actionType)
+void CourseManager::make_enum_based_action_on_course_assignment(Course const& course, CourseAssignment const& courseAssingment,Assignment const& assignment, std::string_view action_content, const AssignmentAction& actionType)
 {
-	courses_map[course.get_code()].make_enum_based_action_on_assignment(assignment, action_content, actionType);
+	courses_map[course.get_code()].make_enum_based_action_on_assignment(courseAssingment,assignment, action_content, actionType);
 }
 
-void CourseManager::remove_assignment_from_course( Course const& course, Assignment const& assignment)
+//void CourseManager::remove_assignment_from_course( Course const& course, Assignment const& assignment)
+//{
+//	courses_map[course.get_code()].remove_assignment(assignment);
+//}
+
+void CourseManager::add_course_assignments_for_new_student(std::string_view courseCode, std::string_view studentName)
 {
-	courses_map[course.get_code()].remove_assignment(assignment);
+	courses_map[(std::string)courseCode].add_empty_assignment_for_new_student(studentName);
 }
 
 std::optional<std::string> CourseManager::get_course_overview(std::string_view courseCode) const
@@ -43,11 +48,12 @@ void CourseManager::addAssignemntToCourse
 {
 	auto course_id = course.get_code();
 
-	for (auto const& name : studentnamesAtThisCourse)
+	/*for (auto const& name : studentnamesAtThisCourse)
 	{
 		auto assignmentForThisStudent = Assignment(content, total_points, name);
 		courses_map[course_id].addAssigment(std::move(assignmentForThisStudent));
-	}
+	}*/
+	courses_map[course_id].add_courseAssignment(content, total_points, studentnamesAtThisCourse);
 	
 }
 //void CourseManager::RemoveStudent(int student_id, int course_id)
