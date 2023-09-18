@@ -1,8 +1,4 @@
-﻿  Assignment.cpp
-  Course.cpp
-  CourseAssignment.cpp
-  CourseManager.cpp
-  Doctor.cpp
+﻿  CourseManager.cpp
   DoctorManager.cpp
   DoctorView.cpp
   EducationSystem.cpp

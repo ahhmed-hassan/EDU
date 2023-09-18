@@ -2,6 +2,8 @@
 #include<iostream>
 #include<vector>
 #include <string_view>
+#include "nlohman/json.hpp"
+using json = nlohmann::json;
 class User
 {
 protected:
@@ -45,6 +47,8 @@ public:
 	void register_in_course(std::string_view courseCode);
 
 	std::string get_name() const;
+
+	json get_json() const;
 
 	//int getId() const;
 };

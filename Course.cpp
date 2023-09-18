@@ -88,6 +88,22 @@ std::vector<Assignment> Course::get_user_assignments(std::string_view studentUse
 	return std::vector<Assignment>(studentAssignments.begin(), studentAssignments.end());
 }
 
+json Course::get_json() const
+{
+	json res{};
+	res["code"] = code;
+	res["docUsername"] = doctorUsername;
+	res["docName"] = doc_name;
+	res["courseName"] = name;
+
+	json courseAssignmentArray;
+	for (const auto& courseAss : courseAssignments)
+		courseAssignmentArray.push_back(courseAss.get_json());
+
+	res["CourseAssignments"] = courseAssignmentArray;
+	return res;
+}
+
 
 
 void Course::make_enum_based_action_on_assignment(CourseAssignment const& courseAssingment,const Assignment& assignment, std::string_view actionContent, AssignmentAction const& actionType)

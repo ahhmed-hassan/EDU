@@ -46,6 +46,7 @@ public:
 		 std::vector<std::string> const& studentnamesAtThisCourse
 	 );
 	 bool is_course_code_available(std::string_view courseCode)const;
+	 json get_json() const;
 
 };
 

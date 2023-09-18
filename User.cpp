@@ -85,3 +85,13 @@ std::string User::get_name() const
 {
 	return name;
 }
+
+json User::get_json() const
+{
+	json res{};
+	res["isDoctor"] = is_doctor;
+	res["userName"] = username; 
+	res["name"] = name; 
+	res["coursesCodes"] = coursesCodes;
+	return res; 
+}

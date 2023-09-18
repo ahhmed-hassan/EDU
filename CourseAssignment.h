@@ -23,6 +23,7 @@ public:
 	std::vector<Assignment> const& get_assignments() const;
 	std::vector<std::string> get_doctor_overview() const; 
 	Assignment get_student_assigment(std::string_view studentName) const; 
+	json get_json() const;
 	auto operator<=>(const CourseAssignment& another) const->std::strong_ordering
 	{
 		return content <=> another.content;

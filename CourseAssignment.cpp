@@ -46,6 +46,20 @@ Assignment CourseAssignment::get_student_assigment(std::string_view studentUsern
 	return *assignnmentIterator;
 }
 
+json CourseAssignment::get_json() const
+{
+	json res{  };
+	res["content"] = content;
+	res["totalPoints"] = totalPoints;
+	json assignmentsArray;
+
+	for (const auto& ass : assignments)
+		assignmentsArray.push_back(ass.get_json());
+
+	res["Assignments"] = assignmentsArray;
+	return res;
+}
+
 bool CourseAssignment::operator==(const CourseAssignment& another) const
 {
 	return content == content;

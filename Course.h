@@ -46,6 +46,7 @@ public:
 	void add_empty_assignment_for_new_student(std::string_view studentName);
 
 	std::vector<Assignment> get_user_assignments(std::string_view studentUsername) const; 
+	json get_json() const; 
 
 	
 

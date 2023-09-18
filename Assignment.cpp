@@ -140,5 +140,22 @@ void Assignment::set_feedback(std::string_view feedback)
 	this->Feedback = feedback;
 }
 
+json Assignment::get_json() const
+{
+	json res{};
+	res["studentName"] = studentName;
+	res["studentUsername"] = student_user_name;
+	res["content"] = content;
+	res["isSubmitted"] = submitted;
+	res["feedback"] = Feedback;
+	res["solution"] = solution;
+	res["total"] = total;
+	if (grade.has_value())
+		res["grade"] = grade.value();
+	else
+		res["grade"] = nullptr;
+	return res;
+}
+
 
 

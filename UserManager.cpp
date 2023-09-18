@@ -82,6 +82,15 @@ std::string UserManager::get_current_username() const
 	return GetCurrentUser().get_name(); 
 }
 
+json UserManager::get_json() const
+{
+	json res{};
+	for (const auto& [userName, user] : username_to_user)
+		res.push_back(user.get_json());
+	return res; 
+
+}
+
 vector<std::string> const& UserManager::get_students_names_enrolled_at_course(Course const& course) const
 {
 	// TODO: insert return statement here
