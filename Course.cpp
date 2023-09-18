@@ -136,6 +136,45 @@ json Course::get_json() const
 	return res;
 }
 
+int Course::get_total_points_of_courseAssignments() const
+{
+	int res{};
+	for (const auto& courseAssignment : courseAssignments)
+		res += courseAssignment.get_total();
+	return res;
+}
+
+double Course::get_scored_points_by_student(std::string_view studentUsername) const
+{
+	double res{ 0 };
+	for (auto&& value :
+		get_user_assignments(studentUsername) |
+		std::views::transform([](const Assignment& assi) {return assi.get_grade().value_or(0); }))
+	{
+		res += value;
+	}
+	return res;
+}
+
+size_t Course::get_number_of_student_submitted_assignments(std::string_view studentUsername) const
+{
+	
+	auto numSubmitted= get_user_assignments(studentUsername) |
+		std::views::filter([](const Assignment& ass) {return ass.is_submitted(); });
+	return std::distance(numSubmitted.begin(), numSubmitted.end());
+}
+
+std::string Course::get_grade_report_string(std::string_view studentUsername) const
+{
+	std::ostringstream res{};
+	res << "For the Course: " << get_code() << " You have submitted " << get_number_of_student_submitted_assignments(studentUsername);
+	res << "out of " << get_courseAssignments_number() << "assignments\n";
+	res << "the currentGrade " << get_scored_points_by_student(studentUsername) << " out of " <<
+		get_total_points_of_courseAssignments() << " Points\n";
+
+	return res.str();
+}
+
 
 
 void Course::make_enum_based_action_on_assignment(CourseAssignment const& courseAssingment,const Assignment& assignment, std::string_view actionContent, AssignmentAction const& actionType)

@@ -49,8 +49,10 @@ public:
 
 	std::vector<Assignment> get_user_assignments(std::string_view studentUsername) const; 
 	json get_json() const; 
-
-	
+	int get_total_points_of_courseAssignments() const;
+	double get_scored_points_by_student(std::string_view studentUsername) const;
+	size_t get_number_of_student_submitted_assignments(std::string_view studentUsername) const;
+	std::string get_grade_report_string(std::string_view studentUsername) const; 
 
 	void make_enum_based_action_on_assignment(
 		CourseAssignment const& courseAssingment,

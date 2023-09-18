@@ -33,6 +33,7 @@ public:
 	bool operator==(std::string_view anotherCOntent)const;
 
 	void make_enum_based_action_on_assignment(const Assignment& assignment, std::string_view actionContent, AssignmentAction const& actionType);
+	int get_total()const;
 	
 	
 private:

@@ -101,3 +101,8 @@ void CourseAssignment::make_enum_based_action_on_assignment(const Assignment& as
 		break;
 	}
 }
+
+int CourseAssignment::get_total() const
+{
+	return totalPoints;
+}

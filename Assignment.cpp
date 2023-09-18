@@ -147,9 +147,19 @@ void Assignment::set_grade(std::string_view grade)
 	return set_grade(std::stoi(static_cast<std::string>(grade)));
 }
 
+std::optional<double> Assignment::get_grade() const
+{
+	return grade;
+}
+
 int Assignment::get_total() const
 {
 	return total;
+}
+
+std::pair<double, int> Assignment::get_relative_grade() const
+{
+	return std::pair<double, int>(grade.value_or(0),total);
 }
 
 void Assignment::set_solution(std::string_view solution)
@@ -199,6 +209,11 @@ json Assignment::get_json() const
 	else
 		res["grade"] = nullptr;
 	return res;
+}
+
+bool Assignment::is_submitted() const
+{
+	return submitted;
 }
 
 

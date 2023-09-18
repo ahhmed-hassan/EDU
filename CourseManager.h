@@ -13,7 +13,7 @@ public:
 	 void LoadDataBasee();
 	 CourseManager(json const& courseManagerJson);
 	 CourseManager() = default;
-	 /*inline*/ std::vector<Course> getUserCourses(User const& user)  ;
+	 /*inline*/ std::vector<Course> getUserCourses(User const& user) const  ;
 	 void SubmitSolution(int, std::string_view);
 	 void RemoveStudent(int student_id, int course_id);
 
@@ -55,6 +55,7 @@ public:
 		/* std::string_view doc_name,*/
 		// std::vector<std::string> const& studentnamesAtThisCourse
 	 );
+	 std::pair<double,int> get_relative_grade_report_for_student(const User& student) const;
 	 bool is_course_code_available(std::string_view courseCode)const;
 	 json get_json() const;
 

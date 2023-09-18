@@ -55,12 +55,14 @@ public:
 	std::string get_content() const;
 	void set_grade(const int grade);
 	void set_grade(std::string_view grade);
-	void get_grade();
+	std::optional<double> get_grade() const;
 	int get_total() const;
+	std::pair<double, int> get_relative_grade()const;
 	void set_solution(std::string_view solution);
 	void set_feedback(std::string_view feedback);
 	std::string all_info_student_string() const;
 	json get_json() const;
+	bool is_submitted() const;
 	
 	auto operator<=>(const Assignment& another) const->std::strong_ordering
 	{

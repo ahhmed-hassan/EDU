@@ -78,6 +78,25 @@ void CourseManager::addAssignemntToCourse
 	courses_map[course_id].add_courseAssignment(content, total_points);
 	
 }
+std::pair<double, int> CourseManager::get_relative_grade_report_for_student(const User& student) const
+{
+	assert(not student.isDoctor());
+	double scored{}; int total{};
+	auto studentCourses = getUserCourses(student);
+	for (const auto& course : studentCourses)
+	{
+		auto userAssignments=course.get_user_assignments(student.get_username());
+		auto relativeGradeReportRange = userAssignments |
+										std::views::transform([](const Assignment& ass) {return ass.get_relative_grade(); });
+		for (const auto& [scoredInRange, totalInRange] : relativeGradeReportRange)
+		{
+			scored += scoredInRange; total += totalInRange;
+		}
+			
+		
+	}
+	return { scored,total };
+}
 bool CourseManager::is_course_code_available(std::string_view courseCode) const
 {
 	std::string code = static_cast<std::string>(courseCode);
@@ -97,12 +116,12 @@ json CourseManager::get_json() const
 //{
 //	courses_map[course_id]->RemoveStudent(student_id);
 //}
- std::vector<Course> CourseManager::getUserCourses(User const& user) 
+ std::vector<Course> CourseManager::getUserCourses(User const& user) const
 {
 	std::vector<Course > res{};
 	//static_assert(typeid(courses_map[1].name()=="Course *"))
 	for ( const auto& id : user.get_courses())
-		res.push_back(courses_map[id]);
+		res.push_back(courses_map.at(id));
 	return res;
 	
 }

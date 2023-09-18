@@ -90,7 +90,14 @@ void StudentView::Display()
 
 void StudentView::GradesReport()
 {
+	
+	auto studentCourses = courses->getUserCourses(users->GetCurrentUser());
+	for (const auto& course : studentCourses)
+	{
+		std::cout << course.get_grade_report_string(users->get_currentuser_username())<<"\n";
+	}
 
+	
 }
 
 void StudentView::ListCourses()

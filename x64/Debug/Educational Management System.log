@@ -1,4 +1,12 @@
 ﻿  Course.cpp
+  CourseManager.cpp
+  Doctor.cpp
+  DoctorManager.cpp
+  DoctorView.cpp
+  EducationSystem.cpp
+  Student.cpp
+  StudentManager.cpp
+  StudentView.cpp
   UserManager.cpp
   Generating Code...
   Educational Management System.vcxproj -> E:\GitEdu\Edu\EDU\x64\Debug\Educational Management System.exe
