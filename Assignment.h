@@ -59,7 +59,7 @@ public:
 	int get_total() const;
 	void set_solution(std::string_view solution);
 	void set_feedback(std::string_view feedback);
-	void show_info();
+	std::string all_info_student_string() const;
 	json get_json() const;
 	
 	auto operator<=>(const Assignment& another) const->std::strong_ordering
@@ -73,5 +73,6 @@ public:
 	std::string doctor_Overview() const;
 
 	std::string doctor_detailed_view() const;
+	bool is_graded() const;
 };
 

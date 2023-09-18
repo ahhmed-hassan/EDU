@@ -28,6 +28,11 @@ void CourseManager::make_enum_based_action_on_course_assignment(Course const& co
 	courses_map[course.get_code()].make_enum_based_action_on_assignment(courseAssingment,assignment, action_content, actionType);
 }
 
+void CourseManager::make_enum_based_action_on_course_assignment(Course const& course, Assignment const& assignment, std::string_view action_content, const AssignmentAction& actionType)
+{
+	courses_map[course.get_code()].make_enum_based_action_on_assignment(assignment, action_content, actionType);
+}
+
 void CourseManager::add_course(std::string_view code, std::string_view courseName, std::string_view docName, std::string_view docUsername)
 {
 	Course newCourse(code, docUsername, docName, courseName);

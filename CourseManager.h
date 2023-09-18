@@ -27,6 +27,14 @@ public:
 		 const AssignmentAction& actionType
 	 );
 
+	 void make_enum_based_action_on_course_assignment(
+		 Course const& course,
+		
+		 Assignment const& assignment,
+		 std::string_view action_content,
+		 const AssignmentAction& actionType
+	 );
+
 	 std::string get_detailed_string_for_course();
 
 	 void add_course(

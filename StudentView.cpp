@@ -8,15 +8,57 @@ StudentView::StudentView(StudentView&& another) noexcept
 	users = std::move(another.users);
 }
 
-void StudentView::CourseChoices(Course* course)
+void StudentView::CourseChoices(Course const& course)
 {
-	int choice = ShowReadMenu({ "Unregister from course","Submit Solution", "Back" });
+	int choice = ShowReadMenu({ "Unregister from course","Show Assignments", "Back" });
 	switch (choice)
 	{
 	case 1:
+		Unregister(course);
+		break;
 
 	default:
 		break;
+	}
+}
+
+void StudentView::assignment_subList(const Course& course,const Assignment& assignment)
+{
+	if (assignment.is_graded())
+	{
+		std::cout << "You cannot set a solution for a graded Assignment try another one\n"; return;
+	}
+	while(true)
+	{
+		std::cout << "Enter 1 to add a solution or 0 to go back\n";
+		int choice = ReadInt(0, 1);
+		if (!choice)
+			return;
+		std::cout << "Please Enter Your Solution\n";
+		std::string solution;
+		std::getline(std::cin, solution);
+		courses->make_enum_based_action_on_course_assignment(course, assignment, solution, AssignmentAction::addSolution);
+		std::cout << "You have added a new Solution!\n";
+
+	}
+
+
+}
+
+void StudentView::show_assignments_in_course(Course const& course)
+{
+	auto studentAssignments = course.get_user_assignments(users->get_currentuser_username());
+	int i{ 1 };
+	while (true)
+	{
+		for (const auto ass : studentAssignments)
+			std::cout << ass.all_info_student_string() << "\n";
+		std::cout << "choose the ith assignments or 0 to cancel";
+		int assignmentChoice = ReadInt(0, (int)studentAssignments.size()) - 1;
+		if (assignmentChoice < 0)
+			return;
+
+		return assignment_subList(course, studentAssignments[assignmentChoice]);
 	}
 }
 
@@ -87,12 +129,12 @@ void StudentView::SubListCourses()
 	std::cout << "Choose the ith  [1" << userCourses.size()  << "] Course to view\n";
 	int choice = ReadInt(1, (int)userCourses.size() );
 	std::string courseDetailedString{};
-	std::cout << userCourses[choice - 1].StudentDetailedString(users->get_currentuser_username()) << endl;
+	std::cout << userCourses[choice - 1].all_info_student_string(users->get_currentuser_username()) << endl;
 
 
 }
 
-void StudentView::Unregister(int course_id, User& student)
+void StudentView::Unregister(Course const& course)
 {
 	//users->Unregister(course_id, student);
 	//courses->RemoveStudent(student.getId(), course_id);
@@ -101,6 +143,24 @@ void StudentView::Unregister(int course_id, User& student)
 void StudentView::ViewCourses()
 {
 	//std::cout<<"Choose the ith [1"<<
-	std::cout << "My Courses List:\n";
+	std::cout << "Your Courses List:\n";
+	auto userCourses = courses->getUserCourses(users->GetCurrentUser());
+	int i = 0;
+	for (const auto& course : userCourses)
+		std::cout << ++i << " -)" << course.OverviewString() << std::endl;
+	std::cout << "choose the ith course or 0 to cancel\n";
+	int courseChoice = ReadInt(0, (int)userCourses.size())-1;
+	if (courseChoice < 0)
+		return; 
+	std::cout << userCourses[courseChoice].doc_and_assignment_string(users->get_currentuser_username());
+	std::cout << "Choose the ith Assignment or 0 to cancel\n";
+
+	int assignmentChoice = ReadInt(0, (int)userCourses[courseChoice].get_courseAssignments_number())-1;
+	if (assignmentChoice < 0)
+		return;
+
+	auto userAssignments = userCourses[courseChoice].get_user_assignments(users->get_currentuser_username());
+	auto chosenAssignment = userAssignments[assignmentChoice];
+
 	//users->
 }

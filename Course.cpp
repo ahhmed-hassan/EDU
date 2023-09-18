@@ -21,17 +21,17 @@ name(jsonCourse["courseName"])
 	courseAssignments = std::move(tempCourseAssignments);
 }
 
-std::string Course::StudentDetailedString(std::string_view studentUsername) const
+std::string Course::doc_and_assignment_string(std::string_view studentUsername) const
 {
 	std::ostringstream res{};
 	res << "Course " << name << " With Code " << code<<
 		" taught by Doctor " << doc_name << " has " <<
-		courseAssignments.size() + 1 << " Assignments:\n";
+		courseAssignments.size()  << " Assignments:\n";
 
 	int i{ 1 };
 
-	for (const auto& assignment : get_user_assignments(studentUsername))
-		res << "Assignment " << i++ <<" "<< assignment.StudentString() << '\n';
+	//for (const auto& assignment : get_user_assignments(studentUsername))
+	//	res << "Assignment " << i++ <<" "<< assignment.StudentString() << '\n';
 
 	return std::move(res.str());
 }
@@ -53,6 +53,11 @@ std::vector<std::string> Course::get_assignments_contents() const
 	return std::vector<std::string>(AssignmentContents.begin(), AssignmentContents.end());
 }
 
+size_t Course::get_courseAssignments_number() const
+{
+	return courseAssignments.size();
+}
+
 std::vector<Assignment> const& Course::get_assignments(const int courseAssignmentPos) const
 {
 	return courseAssignments[courseAssignmentPos].get_assignments();
@@ -71,6 +76,17 @@ std::vector<CourseAssignment> const& Course::get_course_assignments() const
 std::string const Course::get_code() const
 {
 	return code;
+}
+
+std::string Course::all_info_student_string(std::string_view studentUsername) const
+{
+	std::ostringstream res{};
+	res << doc_and_assignment_string(studentUsername);
+	int i{ 1 };
+	auto userAssins = get_user_assignments(studentUsername);
+	for (const auto& assignment : userAssins)
+		res << i++ << "- " << assignment.all_info_student_string()<<"\n";
+	return res.str();
 }
 
 void Course::add_courseAssignment(std::string_view content, const int totalPoints)//, std::vector<std::string> studentnamesAtThisCourse)
@@ -95,15 +111,7 @@ void Course::add_new_student_ussername_and_name(UsernameAndName const& usernameA
 		courseAssignment.add_student_entry(usernameAndName);
 }
 
-//void Course::add_empty_assignment_for_new_student(std::string_view studentName)
-//{
-//	if (courseAssignments.empty())
-//		return;
-//
-//	for (auto& courseAssi : courseAssignments | std::views::all)
-//		courseAssi.add_student_entry(studentName);
-//
-//}
+
 
 std::vector<Assignment> Course::get_user_assignments(std::string_view studentUsername) const
 {
@@ -136,6 +144,13 @@ void Course::make_enum_based_action_on_assignment(CourseAssignment const& course
 	auto courseAssignmentIterator = std::ranges::find(courseAssignments, courseAssingment);
 	courseAssignmentIterator->make_enum_based_action_on_assignment(assignment, actionContent, actionType);
 	
+}
+
+void Course::make_enum_based_action_on_assignment(const Assignment& assignment, std::string_view actionContent, AssignmentAction const& actionType)
+{
+	auto courseAssignmentIterator = std::find(courseAssignments.begin(), courseAssignments.end(), assignment.get_content());
+	assert(courseAssignmentIterator != courseAssignments.end());
+	courseAssignmentIterator->make_enum_based_action_on_assignment(assignment, actionContent, actionType);
 }
 
 bool Course::operator==(const Course& another) const

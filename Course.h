@@ -32,14 +32,16 @@ public:
 	Course(std::string_view code, std::string_view docUsername, string_view docName, string_view name);
 	Course(json const& jsonCourse);
 	Course() = default;
-	std::string StudentDetailedString(std::string_view studentUsername) const;
+	std::string doc_and_assignment_string(std::string_view studentUsername) const;
 	std::string OverviewString() const;
 
 	std::vector <std::string> get_assignments_contents() const;
+	size_t get_courseAssignments_number() const;
 	std::vector<Assignment> const& get_assignments(const int courseAssignmentPos) const;
 	std::vector<CourseAssignment> const& get_course_assignments()const;
-	//int GetId()const;
 	std::string const get_code() const;
+
+	std::string all_info_student_string(std::string_view studentName) const;
 	void add_courseAssignment(std::string_view content, const int totalPoints);// , std::vector<std::string> stuedntnamesAtThisCourse);
 
 	void add_new_student_ussername_and_name(UsernameAndName const& usernameAndName);
@@ -55,6 +57,12 @@ public:
 		const Assignment& assignment, 
 		std::string_view actionContent, 
 		AssignmentAction const& actionType);
+	void make_enum_based_action_on_assignment(
+		
+		const Assignment& assignment,
+		std::string_view actionContent,
+		AssignmentAction const& actionType);
+
 
 	//void remove_assignment(const Assignment& assignemnt);
 

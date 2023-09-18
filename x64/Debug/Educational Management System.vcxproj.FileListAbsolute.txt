@@ -1,1 +1,2 @@
 E:\EDU\EDU\x64\Debug\Educational Management System.exe
+E:\GitEdu\Edu\EDU\x64\Debug\Educational Management System.exe

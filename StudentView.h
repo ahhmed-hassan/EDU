@@ -19,8 +19,10 @@ public:
 	void RegisterInCourse();
 	//At this point I already know the courses belongs to the same user
 	void SubListCourses();
-	void Unregister(int course_id, User& student_id);
-	void CourseChoices(Course*);
+	void Unregister(Course const& course);
+	void CourseChoices(Course const& course);
+	void assignment_subList(const Course& course, const Assignment& assignment);
+	void show_assignments_in_course(Course const& course);
 	void GradesReport();
 	
 	

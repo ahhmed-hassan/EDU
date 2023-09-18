@@ -71,6 +71,11 @@ std::string Assignment::doctor_detailed_view() const
 	return res.str(); 
 }
 
+bool Assignment::is_graded() const
+{
+	return grade.has_value();
+}
+
 
 
 void Assignment::set_id(const int id)
@@ -120,10 +125,7 @@ std::string Assignment::get_student_username() const
 	return student_user_name;
 }
 
-//int Assignment::get_courseId() const
-//{
-//	return courseId;
-//}
+
 
 void Assignment::set_content(std::string_view content)
 {
@@ -158,6 +160,28 @@ void Assignment::set_solution(std::string_view solution)
 void Assignment::set_feedback(std::string_view feedback)
 {
 	this->Feedback = feedback;
+}
+
+std::string Assignment::all_info_student_string() const
+{
+	std::ostringstream res{};
+	res << "content: " << content << '\n';
+	if (!submitted)
+		res << " NOT";
+	res << " Submitted--";
+	if (!solution.empty())
+		res << "Your Solution is: "<<solution<<"\n";
+	if (!Feedback.empty())
+		res << "Feedback is: " << Feedback << "\n";
+
+	res << "degree is: ";
+	if (grade.has_value())
+		res << "NA";
+	else
+		res << grade.value();
+	res << "/" << total<<"\n";
+	
+	return (res.str());
 }
 
 json Assignment::get_json() const
