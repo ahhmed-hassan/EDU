@@ -77,6 +77,11 @@ std::string UserManager::get_current_user_username() const
 	return GetCurrentUser().get_username();
 }
 
+std::string UserManager::get_current_username() const
+{
+	return GetCurrentUser().get_name(); 
+}
+
 vector<std::string> const& UserManager::get_students_names_enrolled_at_course(Course const& course) const
 {
 	// TODO: insert return statement here
@@ -87,5 +92,10 @@ vector<std::string> const& UserManager::get_students_names_enrolled_at_course(Co
 		| views::transform([](const User& user) {return user.get_name(); });
 
 	return vector<std::string>(usersEnrolledAtCourse.begin(), usersEnrolledAtCourse.end());
+}
+
+bool UserManager::is_current_user_doctor() const
+{
+	return GetCurrentUser().isDoctor();
 }
 

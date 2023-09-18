@@ -59,6 +59,7 @@ public:
 
 	//void RemoveStudent(int student_id);
 	//void SetSolution();
+	bool operator==(const Course& another) const; 
 
 };
 

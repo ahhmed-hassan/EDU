@@ -98,6 +98,11 @@ void Course::make_enum_based_action_on_assignment(CourseAssignment const& course
 	
 }
 
+bool Course::operator==(const Course& another) const
+{
+	return code == another.code;
+}
+
 //void Course::remove_assignment(const Assignment& assignment)
 //{
 //	auto const assignmentIterator=std::find(assignments.begin(), assignments.end(), assignment);

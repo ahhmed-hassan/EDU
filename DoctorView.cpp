@@ -99,7 +99,8 @@ void DoctorView::AddAssignment(Course course)
 	std::cout << "What is the total points of this assigment?\n"; int points; cin >> points;
 
 	auto studentnamesEnrolledAtThisCourse = users->get_students_names_enrolled_at_course(course);
-	courses->addAssignemntToCourse(course, assigmentContent, points,users->GetCurrentUser().get_name(),studentnamesEnrolledAtThisCourse);
+	courses->addAssignemntToCourse(course, assigmentContent, points/*,users->GetCurrentUser().get_name()*/,studentnamesEnrolledAtThisCourse);
+	std::cout << "You have added a new Assignment!\n";
 }
 
 void DoctorView::course_assignment_subList_from_course(Course const& course, CourseAssignment const& courseAssingment)
@@ -155,5 +156,19 @@ void DoctorView::assignment_sublist(Course const& course, CourseAssignment const
 
 	}
 }
-void DoctorView:: AddCourses(){}
+void DoctorView:: AddCourses()
+{
+	assert(users->is_current_user_doctor());
+	std::cout << "What is the course name?\n"; std::string courseName{}; std::cin >> courseName; 
+	std::cout << "What is the course code?\n"; std::string courseCode{}; std::cin >> courseCode; 
+	while (not courses->is_course_code_available(courseCode))
+	{
+		std::cout << "This code is already taken please chose another course code\n"; std::cin >> courseCode; 
+	}
+	std::string docUsername = users->get_current_user_username();
+	std::string docName = users->get_current_username();
+	courses->add_course(courseCode, courseName, docName, docUsername);
+	std::cout << "You have added a new course ! \n"; 
+
+}
 //Userless comment

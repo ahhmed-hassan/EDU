@@ -27,6 +27,10 @@ public:
 
 	 std::string get_detailed_string_for_course();
 
+	 void add_course(
+		 std::string_view code, std::string_view courseName,
+		 std::string_view docName, std::string_view docUsername);
+
 	 void remove_assignment_from_course(Course const& course, Assignment const& assignment);
 
 	 void add_course_assignments_for_new_student(std::string_view courseCode, std::string_view studentName);
@@ -38,9 +42,10 @@ public:
 		 Course const& course,
 		 std::string_view content,
 		 const int total_points,
-		 std::string_view doc_name,
+		/* std::string_view doc_name,*/
 		 std::vector<std::string> const& studentnamesAtThisCourse
 	 );
+	 bool is_course_code_available(std::string_view courseCode)const;
 
 };
 

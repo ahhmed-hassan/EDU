@@ -18,6 +18,12 @@ void CourseManager::make_enum_based_action_on_course_assignment(Course const& co
 	courses_map[course.get_code()].make_enum_based_action_on_assignment(courseAssingment,assignment, action_content, actionType);
 }
 
+void CourseManager::add_course(std::string_view code, std::string_view courseName, std::string_view docName, std::string_view docUsername)
+{
+	Course newCourse(code, docUsername, docName, courseName);
+	courses_map.insert({ (std::string)code, newCourse });
+}
+
 //void CourseManager::remove_assignment_from_course( Course const& course, Assignment const& assignment)
 //{
 //	courses_map[course.get_code()].remove_assignment(assignment);
@@ -42,7 +48,7 @@ void CourseManager::addAssignemntToCourse
 	Course const& course, 
 	std::string_view content,
 	const int total_points,
-	std::string_view doc_name,
+	/*std::string_view doc_name,*/
 	std::vector<std::string> const& studentnamesAtThisCourse
 )
 {
@@ -55,6 +61,12 @@ void CourseManager::addAssignemntToCourse
 	}*/
 	courses_map[course_id].add_courseAssignment(content, total_points, studentnamesAtThisCourse);
 	
+}
+bool CourseManager::is_course_code_available(std::string_view courseCode) const
+{
+	std::string code = static_cast<std::string>(courseCode);
+	return courses_map.find(code) != courses_map.end();
+	//return std::find(courses_map.cbegin(), courses_map.cend(), code) != courses_map.cend();
 }
 //void CourseManager::RemoveStudent(int student_id, int course_id)
 //{
