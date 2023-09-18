@@ -35,7 +35,7 @@ public:
 
 	 void remove_assignment_from_course(Course const& course, Assignment const& assignment);
 
-	 void add_course_assignments_for_new_student(std::string_view courseCode, UsernameAndName const& studentUsernameAndName);
+	 void add_new_student_usernameAndName_to_course(std::string_view courseCode, UsernameAndName const& studentUsernameAndName);
 
 	 std::optional<std::string> get_course_overview(std::string_view courseCode) const;
 

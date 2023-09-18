@@ -75,7 +75,7 @@ void StudentView::RegisterInCourse()
 	std::cout << "Your chosen course\n" << courseOverview.value() << "\n"; 
 
 	users->register_in_course(code);
-	courses->add_course_assignments_for_new_student(code, users->get_currentuser_usernameAndName());
+	courses->add_new_student_usernameAndName_to_course(code, users->get_currentuser_usernameAndName());
 	std::cout << "You are enrolled in the course";
 
 }

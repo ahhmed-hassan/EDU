@@ -39,7 +39,7 @@ void CourseManager::add_course(std::string_view code, std::string_view courseNam
 //	courses_map[course.get_code()].remove_assignment(assignment);
 //}
 
-void CourseManager::add_course_assignments_for_new_student(std::string_view courseCode,UsernameAndName const& studentUsernameAndName)
+void CourseManager::add_new_student_usernameAndName_to_course(std::string_view courseCode,UsernameAndName const& studentUsernameAndName)
 {
 	//courses_map[(std::string)courseCode].add_empty_assignment_for_new_student(studentUsernameAndName);
 	courses_map[(std::string)courseCode].add_new_student_ussername_and_name(studentUsernameAndName);
