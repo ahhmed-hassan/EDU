@@ -153,6 +153,8 @@
     <ClInclude Include="DoctorView.h" />
     <ClInclude Include="EducationSystem.h" />
     <ClInclude Include="Helpers.h" />
+    <ClInclude Include="nlohman\json.hpp" />
+    <ClInclude Include="nlohman\json_fwd.hpp" />
     <ClInclude Include="Student.h" />
     <ClInclude Include="StudentManager.h" />
     <ClInclude Include="StudentView.h" />

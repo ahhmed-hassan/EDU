@@ -31,6 +31,9 @@
     <Filter Include="Source Files\Managers">
       <UniqueIdentifier>{614c8aac-0216-4660-9edf-b988a19b70c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utilities">
+      <UniqueIdentifier>{5d1113cd-a59c-4df0-9900-502c9b2d7c60}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -83,9 +86,6 @@
     <ClInclude Include="Course.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Helpers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EducationSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -118,6 +118,15 @@
     </ClInclude>
     <ClInclude Include="CourseAssignment.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohman\json.hpp">
+      <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohman\json_fwd.hpp">
+      <Filter>Header Files\Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
