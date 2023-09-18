@@ -18,6 +18,12 @@ using json = nlohmann::json;
 //	std::string get_student_username() const; 
 //};
 
+struct UsernameAndName
+{
+	std::string username{};
+	std::string name{};
+};
+
 class Assignment
 {
 private:
@@ -36,7 +42,8 @@ private:
 	
 
 public:
-	Assignment(std::string_view content, int total, std::string_view studentName);
+	Assignment(std::string_view content, int total, std::string_view studentUsername, std::string_view studentName);
+	Assignment(std::string_view content, int total, UsernameAndName const& usernameAndName);
 	Assignment(std::string_view content, int total);
 	Assignment(json const& jsonAssignment);
 	Assignment() = default;

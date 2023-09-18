@@ -99,7 +99,7 @@ void DoctorView::AddAssignment(Course course)
 	std::cout << "What is the total points of this assigment?\n"; int points; cin >> points;
 
 	auto studentnamesEnrolledAtThisCourse = users->get_students_names_enrolled_at_course(course);
-	courses->addAssignemntToCourse(course, assigmentContent, points/*,users->GetCurrentUser().get_name()*/,studentnamesEnrolledAtThisCourse);
+	courses->addAssignemntToCourse(course, assigmentContent, points);///*,users->GetCurrentUser().get_name()*/, studentnamesEnrolledAtThisCourse);
 	std::cout << "You have added a new Assignment!\n";
 }
 
@@ -165,8 +165,8 @@ void DoctorView:: AddCourses()
 	{
 		std::cout << "This code is already taken please chose another course code\n"; std::cin >> courseCode; 
 	}
-	std::string docUsername = users->get_current_user_username();
-	std::string docName = users->get_current_username();
+	std::string docUsername = users->get_currentuser_username();
+	std::string docName = users->get_currentuser_name();
 	courses->add_course(courseCode, courseName, docName, docUsername);
 	std::cout << "You have added a new course ! \n"; 
 

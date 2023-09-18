@@ -73,9 +73,9 @@ std::string const Course::get_code() const
 	return code;
 }
 
-void Course::add_courseAssignment(std::string_view content, const int totalPoints, std::vector<std::string> studentnamesAtThisCourse)
+void Course::add_courseAssignment(std::string_view content, const int totalPoints)//, std::vector<std::string> studentnamesAtThisCourse)
 {
-	courseAssignments.emplace_back(CourseAssignment(content, totalPoints, studentnamesAtThisCourse));
+	courseAssignments.emplace_back(CourseAssignment(content, totalPoints, usernameAndNames));
 }
 
 //void Course::addAssigment( Assignment&& assign)
@@ -85,15 +85,25 @@ void Course::add_courseAssignment(std::string_view content, const int totalPoint
 //	assignments.back().set_id((int)assignments.size() - 1);
 //}
 
-void Course::add_empty_assignment_for_new_student(std::string_view studentName)
+void Course::add_new_student_ussername_and_name(UsernameAndName const& usernameAndName)
 {
+	usernameAndNames.push_back(usernameAndName);
 	if (courseAssignments.empty())
 		return;
 
-	for (auto& courseAssi : courseAssignments | std::views::all)
-		courseAssi.add_student_entry(studentName);
-
+	for (auto& courseAssignment : courseAssignments)
+		courseAssignment.add_student_entry(usernameAndName);
 }
+
+//void Course::add_empty_assignment_for_new_student(std::string_view studentName)
+//{
+//	if (courseAssignments.empty())
+//		return;
+//
+//	for (auto& courseAssi : courseAssignments | std::views::all)
+//		courseAssi.add_student_entry(studentName);
+//
+//}
 
 std::vector<Assignment> Course::get_user_assignments(std::string_view studentUsername) const
 {

@@ -3,7 +3,7 @@
 CourseAssignment::CourseAssignment
 (std::string_view content,
 	const int totalPoints, 
-	std::vector<std::string> const& studentNames):content(content), totalPoints(totalPoints)
+	std::vector<UsernameAndName> const& studentNames):content(content), totalPoints(totalPoints)
 {
 	for(const auto& studentName:studentNames)
 	{
@@ -25,11 +25,11 @@ CourseAssignment::CourseAssignment(json const& jsonCourseAssignment) :
 	assignments = std::move(tempAssignments);
 }
 
-void CourseAssignment::add_student_entry(std::string_view studentName)
+void CourseAssignment::add_student_entry(UsernameAndName const& usernameAndName)
 {
 	if (assignments.empty())
 		return;
-	assignments.emplace_back(content, totalPoints, studentName);
+	assignments.emplace_back(content, totalPoints, usernameAndName);
 }
 
 std::string const& CourseAssignment::get_content() const

@@ -25,9 +25,7 @@ private:
 	std::string doctorUsername {};
 	std::string name{};
 	string_view doc_name{};
-	//std::vector<int>students_ids{};
-	//std::vector<Assignment>assignments{};
-	std::map<std::string, std::string> studentUserNametToStudenname{};
+	std::vector<UsernameAndName> usernameAndNames{};
 	std::vector<CourseAssignment> courseAssignments{};
 	
 public:
@@ -42,9 +40,10 @@ public:
 	std::vector<CourseAssignment> const& get_course_assignments()const;
 	//int GetId()const;
 	std::string const get_code() const;
-	void add_courseAssignment(std::string_view content, const int totalPoints, std::vector<std::string> stuedntnamesAtThisCourse);
+	void add_courseAssignment(std::string_view content, const int totalPoints);// , std::vector<std::string> stuedntnamesAtThisCourse);
 
-	void add_empty_assignment_for_new_student(std::string_view studentName);
+	void add_new_student_ussername_and_name(UsernameAndName const& usernameAndName);
+	//void add_empty_assignment_for_new_student(std::string_view studentName);
 
 	std::vector<Assignment> get_user_assignments(std::string_view studentUsername) const; 
 	json get_json() const; 

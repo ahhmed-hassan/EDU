@@ -17,9 +17,9 @@ enum class AssignmentAction
 class CourseAssignment
 {
 public:
-	CourseAssignment(std::string_view content, const int totalPoints, std::vector<std::string>const& studentNames);
+	CourseAssignment(std::string_view content, const int totalPoints, std::vector<UsernameAndName>const& studentNames);
 	CourseAssignment(json const& jsonCourseAssignment);
-	void add_student_entry(std::string_view studentName);
+	void add_student_entry(UsernameAndName const& usernameAndName);
 	std::string const& get_content() const;
 	std::vector<Assignment> const& get_assignments() const;
 	std::vector<std::string> get_doctor_overview() const; 

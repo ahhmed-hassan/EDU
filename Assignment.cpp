@@ -81,12 +81,18 @@ void Assignment::set_id(const int id)
 Assignment::Assignment
 (std::string_view content,
 	int total,
+	std::string_view studentUsername,
 	std::string_view studentName
 	
 )
-	:content(content), total(total), studentName(studentName), student_user_name(studentName)
+	:content(content), total(total), studentName(studentName), student_user_name(studentUsername)
 {
 	
+}
+
+Assignment::Assignment(std::string_view content, int total, UsernameAndName const& usernameAndName):
+Assignment(content, total, usernameAndName.username,usernameAndName.name)
+{
 }
 
 Assignment::Assignment(std::string_view content, int total):content(content),total(total)

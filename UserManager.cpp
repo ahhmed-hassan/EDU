@@ -81,14 +81,19 @@ void UserManager::register_in_course(std::string_view courseCode)
 	current_user.get().register_in_course(courseCode);
 }
 
-std::string UserManager::get_current_user_username() const
+std::string UserManager::get_currentuser_username() const
 {
 	return GetCurrentUser().get_username();
 }
 
-std::string UserManager::get_current_username() const
+std::string UserManager::get_currentuser_name() const
 {
 	return GetCurrentUser().get_name(); 
+}
+
+UsernameAndName UserManager::get_currentuser_usernameAndName() const
+{
+	return UsernameAndName(get_currentuser_name(), get_currentuser_username());
 }
 
 json UserManager::get_json() const

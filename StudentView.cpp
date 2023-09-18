@@ -75,7 +75,7 @@ void StudentView::RegisterInCourse()
 	std::cout << "Your chosen course\n" << courseOverview.value() << "\n"; 
 
 	users->register_in_course(code);
-	courses->add_course_assignments_for_new_student(code, users->get_current_user_username());
+	courses->add_course_assignments_for_new_student(code, users->get_currentuser_usernameAndName());
 	std::cout << "You are enrolled in the course";
 
 }
@@ -87,7 +87,7 @@ void StudentView::SubListCourses()
 	std::cout << "Choose the ith  [1" << userCourses.size()  << "] Course to view\n";
 	int choice = ReadInt(1, (int)userCourses.size() );
 	std::string courseDetailedString{};
-	std::cout << userCourses[choice - 1].StudentDetailedString(users->get_current_user_username()) << endl;
+	std::cout << userCourses[choice - 1].StudentDetailedString(users->get_currentuser_username()) << endl;
 
 
 }

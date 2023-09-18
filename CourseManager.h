@@ -35,7 +35,7 @@ public:
 
 	 void remove_assignment_from_course(Course const& course, Assignment const& assignment);
 
-	 void add_course_assignments_for_new_student(std::string_view courseCode, std::string_view studentName);
+	 void add_course_assignments_for_new_student(std::string_view courseCode, UsernameAndName const& studentUsernameAndName);
 
 	 std::optional<std::string> get_course_overview(std::string_view courseCode) const;
 
@@ -43,9 +43,9 @@ public:
 	 (
 		 Course const& course,
 		 std::string_view content,
-		 const int total_points,
+		 const int total_points
 		/* std::string_view doc_name,*/
-		 std::vector<std::string> const& studentnamesAtThisCourse
+		// std::vector<std::string> const& studentnamesAtThisCourse
 	 );
 	 bool is_course_code_available(std::string_view courseCode)const;
 	 json get_json() const;

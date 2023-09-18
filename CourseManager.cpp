@@ -39,9 +39,10 @@ void CourseManager::add_course(std::string_view code, std::string_view courseNam
 //	courses_map[course.get_code()].remove_assignment(assignment);
 //}
 
-void CourseManager::add_course_assignments_for_new_student(std::string_view courseCode, std::string_view studentName)
+void CourseManager::add_course_assignments_for_new_student(std::string_view courseCode,UsernameAndName const& studentUsernameAndName)
 {
-	courses_map[(std::string)courseCode].add_empty_assignment_for_new_student(studentName);
+	//courses_map[(std::string)courseCode].add_empty_assignment_for_new_student(studentUsernameAndName);
+	courses_map[(std::string)courseCode].add_new_student_ussername_and_name(studentUsernameAndName);
 }
 
 std::optional<std::string> CourseManager::get_course_overview(std::string_view courseCode) const
@@ -57,9 +58,9 @@ void CourseManager::addAssignemntToCourse
 (
 	Course const& course, 
 	std::string_view content,
-	const int total_points,
+	const int total_points
 	/*std::string_view doc_name,*/
-	std::vector<std::string> const& studentnamesAtThisCourse
+	/*std::vector<std::string> const& studentnamesAtThisCourse*/
 )
 {
 	auto course_id = course.get_code();
@@ -69,7 +70,7 @@ void CourseManager::addAssignemntToCourse
 		auto assignmentForThisStudent = Assignment(content, total_points, name);
 		courses_map[course_id].addAssigment(std::move(assignmentForThisStudent));
 	}*/
-	courses_map[course_id].add_courseAssignment(content, total_points, studentnamesAtThisCourse);
+	courses_map[course_id].add_courseAssignment(content, total_points);
 	
 }
 bool CourseManager::is_course_code_available(std::string_view courseCode) const
