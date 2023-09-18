@@ -3,6 +3,15 @@
 UserManager::UserManager():current_user(username_to_user["ahmed"]) {
 	last_id = 0; 
 }
+UserManager::UserManager(json const& jsonUsers):current_user(username_to_user["ahmed"])
+{
+	for (const auto& jsonUser : jsonUsers)
+	{
+		User tmpUser(jsonUser); 
+		auto username = tmpUser.get_username(); 
+		username_to_user.insert({username, std::move(tmpUser)});
+	}
+}
 void UserManager::LoadDataBase()
 {
 

@@ -93,6 +93,20 @@ Assignment::Assignment(std::string_view content, int total):content(content),tot
 {
 }
 
+Assignment::Assignment(json const& jsonAssignment) :
+	studentName(jsonAssignment["studentName"]),
+	student_user_name(jsonAssignment["studentUsername"]),
+	content(jsonAssignment["content"]),
+	submitted(jsonAssignment["isSubmitted"]),
+	Feedback(jsonAssignment["feedback"]),
+	solution(jsonAssignment["solution"]),
+	total(jsonAssignment["total"])
+{
+	grade = jsonAssignment["grade"].is_null() ? 
+		std::nullopt : 
+		std::optional<double>(jsonAssignment["grade"].get<double>());
+}
+
 
 
 std::string Assignment::get_student_username() const

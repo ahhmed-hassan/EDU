@@ -11,6 +11,8 @@ private:
 	std::map<std::string, Course> courses_map{};//course code to course
 public:
 	 void LoadDataBasee();
+	 CourseManager(json const& courseManagerJson);
+	 CourseManager() = default;
 	 /*inline*/ std::vector<Course> getUserCourses(User const& user)  ;
 	 void SubmitSolution(int, std::string_view);
 	 void RemoveStudent(int student_id, int course_id);

@@ -3,6 +3,15 @@
 #include <assert.h>
 
 User::User() = default;
+User::User(json const& jsonUser):
+	is_doctor(jsonUser["isDoctor"]),
+	username(jsonUser["userName"]),
+	name(jsonUser["name"])
+	//coursesCodes(jsonUser["courseCodes"])
+{
+	for (const auto& code : jsonUser["coursesCodes"])
+		coursesCodes.push_back(code);
+}
 void User::set_username(std::string_view x) {
 	username=x;
 }

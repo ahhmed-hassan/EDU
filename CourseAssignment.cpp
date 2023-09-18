@@ -12,6 +12,19 @@ CourseAssignment::CourseAssignment
 	}
 }
 
+CourseAssignment::CourseAssignment(json const& jsonCourseAssignment) :
+	content(jsonCourseAssignment["content"]),
+	totalPoints(jsonCourseAssignment["totalPoints"])
+{
+	auto jsonAssignments = jsonCourseAssignment["Assignments"];
+	std::vector<Assignment> tempAssignments{}; 
+
+	for (const auto& jsonAssignmet : jsonAssignments)
+		tempAssignments.push_back(Assignment(jsonAssignmet));
+
+	assignments = std::move(tempAssignments);
+}
+
 void CourseAssignment::add_student_entry(std::string_view studentName)
 {
 	if (assignments.empty())

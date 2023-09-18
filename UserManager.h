@@ -18,6 +18,7 @@ private:
 	int last_id{};
 public:
 	UserManager();
+	UserManager(json const& jsonUsers);
 	void Access_system();
 	void Login(); 
 	void Signup();

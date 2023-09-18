@@ -32,6 +32,7 @@ private:
 	
 public:
 	Course(std::string_view code, std::string_view docUsername, string_view docName, string_view name);
+	Course(json const& jsonCourse);
 	Course() = default;
 	std::string StudentDetailedString(std::string_view studentUsername) const;
 	std::string OverviewString() const;

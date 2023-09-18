@@ -4,6 +4,16 @@ void CourseManager::LoadDataBasee()
 	return;
 }
 
+CourseManager::CourseManager(json const& courseManagerJson)
+{
+	for (const auto& courseJson : courseManagerJson)
+	{
+		Course tmpCourse(courseJson);
+		std::string code(tmpCourse.get_code());
+		courses_map.insert({ code,std::move(tmpCourse) });
+	}
+}
+
 void CourseManager::SubmitSolution(int course_id, std::string_view solution)
 {
 	

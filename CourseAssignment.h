@@ -18,6 +18,7 @@ class CourseAssignment
 {
 public:
 	CourseAssignment(std::string_view content, const int totalPoints, std::vector<std::string>const& studentNames);
+	CourseAssignment(json const& jsonCourseAssignment);
 	void add_student_entry(std::string_view studentName);
 	std::string const& get_content() const;
 	std::vector<Assignment> const& get_assignments() const;

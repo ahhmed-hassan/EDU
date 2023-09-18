@@ -7,6 +7,20 @@ code(code),doctorUsername(docUsername),doc_name(docName),name(name)
 {
 }
 
+Course::Course(json const& jsonCourse):
+code(jsonCourse["code"]),
+doctorUsername(jsonCourse["docUsername"]),
+doc_name(jsonCourse["docName"]),
+name(jsonCourse["courseName"])
+{
+	auto jsonCoursesAssignments = jsonCourse["CourseAssignments"];
+	std::vector<CourseAssignment>tempCourseAssignments{};
+	
+	for (const auto& jsonCourseAssi : jsonCoursesAssignments)
+		tempCourseAssignments.emplace_back(CourseAssignment(jsonCourseAssi));
+	courseAssignments = std::move(tempCourseAssignments);
+}
+
 std::string Course::StudentDetailedString(std::string_view studentUsername) const
 {
 	std::ostringstream res{};

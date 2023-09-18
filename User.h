@@ -15,7 +15,7 @@ protected:
 	std::vector<std::string> coursesCodes{};
 public:
 	User();
-	User(std::string line);
+	User(json const& jsonUser);
 
 	void set_username(std::string_view x);
 
