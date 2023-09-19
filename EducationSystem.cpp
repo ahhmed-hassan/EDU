@@ -8,7 +8,7 @@ void EducationSystem::LoadDataBase()
 	user_manager->LoadDataBase();
 	//course_manager->LoadDataBasee();
 }
-void EducationSystem::MakeView(bool isDoctor)
+void EducationSystem::init_view(bool isDoctor)
 {
 
 	if (isDoctor)
@@ -27,7 +27,7 @@ void EducationSystem::Run()
 	LoadDataBase();
 	user_manager->Access_system();
 
-	MakeView(user_manager->GetCurrentUser().isDoctor());
+	init_view(user_manager->is_current_user_doctor());
 
 	std::visit(var_visitor(), view);
 

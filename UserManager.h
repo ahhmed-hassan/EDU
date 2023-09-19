@@ -14,7 +14,7 @@ class UserManager
 {
 private:
 	std::map<std::string, User> username_to_user{};
-	UserRef current_user;
+	User current_user{};
 	int last_id{};
 public:
 	UserManager();
@@ -26,7 +26,7 @@ public:
 	void UpdateDataBase(const User& user);
 	void unregister_student_from_course(User const& student, std::string_view courseCode);
 	const User& GetCurrentUser() const;
-	void register_in_course(std::string_view courseCode);
+	void register_in_course( std::string_view courseCode);
 	std::string get_currentuser_username() const; 
 	std::string get_currentuser_name() const; 
 	UsernameAndName get_currentuser_usernameAndName() const;

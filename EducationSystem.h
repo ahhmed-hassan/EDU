@@ -19,11 +19,13 @@ private:
 		void operator() (DoctorView& doc) { doc.Display(); }
 		void operator() (StudentView& doc) { doc.Display(); }
 	};
+	void LoadDataBase();
+	void init_view(bool isDoctor);
+
 public:
 	EducationSystem();
-	void LoadDataBase();
+	
 	void Run();
-	void MakeView(bool isDoctor);
 
 	
 };

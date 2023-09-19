@@ -54,10 +54,10 @@ void UserManager::Signup() {
 		cout << "Enter a username\n"; cin >> x;
 	}
 
-	current_user.get().read_user(x);
+	current_user.read_user(x);
 
-	//username_to_user[current_user.get_username()] = std::make_unique<User>(current_user);
-	username_to_user[current_user.get().get_username()] = current_user;
+	
+	username_to_user[get_currentuser_username()] = current_user;
 	UpdateDataBase(current_user);
 }
 void UserManager::UpdateDataBase(const User& user) {
@@ -84,8 +84,8 @@ vector<std::string> UserManager::GetCurrentUserCourses() const
 
 void UserManager::register_in_course(std::string_view courseCode)
 {
-	assert(not current_user.get().isDoctor());
-	current_user.get().register_in_course(courseCode);
+	assert(not is_current_user_doctor());
+	username_to_user[get_currentuser_username()].register_in_course(courseCode);
 }
 
 std::string UserManager::get_currentuser_username() const
