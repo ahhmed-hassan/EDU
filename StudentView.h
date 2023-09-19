@@ -17,6 +17,7 @@ public:
 	void list_courses();
 	void view_courses(); 
 	void register_in_course();
+	void log_out();
 	//At this point I already know the courses belongs to the same user
 	void sublist_courses();
 	void unregister(Course const& course);

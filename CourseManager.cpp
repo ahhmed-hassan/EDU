@@ -116,7 +116,16 @@ bool CourseManager::is_course_code_available(std::string_view courseCode) const
 	return courses_map.find(code) != courses_map.end();
 	//return std::find(courses_map.cbegin(), courses_map.cend(), code) != courses_map.cend();
 }
-json CourseManager::get_json() const
+void CourseManager::save_data_to_json(std::string const& path) const
+{
+	auto jsonData = get_json(); 
+	std::ofstream output(path); 
+	if (not output.is_open())
+		throw std::runtime_error("Cannot open the file " + path);
+	output<<jsonData.dump(4)<<std::endl;
+	output.close();
+}
+json  CourseManager::get_json() const
 {
 	json res{};
 	for (const auto& [code, course] : courses_map)

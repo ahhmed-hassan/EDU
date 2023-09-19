@@ -31,7 +31,8 @@ public:
 	std::string get_currentuser_username() const; 
 	std::string get_currentuser_name() const; 
 	UsernameAndName get_currentuser_usernameAndName() const;
-	json get_json() const; 
+	json get_json() const;
+	void save_data_to_json(std::string const& path="users.json") const;
 
 	vector<std::string> GetCurrentUserCourses() const; 
 	vector<std::string>const& get_students_names_enrolled_at_course(Course const& course) const;

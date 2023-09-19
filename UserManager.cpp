@@ -121,6 +121,16 @@ json UserManager::get_json() const
 
 }
 
+void UserManager::save_data_to_json(std::string const& path) const
+{
+	auto jsonData = get_json();
+	std::ofstream output(path);
+	if (not output.is_open())
+		throw std::runtime_error("Cannot open the file " + path);
+	output << jsonData.dump(4) << std::endl;
+	output.close();
+}
+
 vector<std::string> const& UserManager::get_students_names_enrolled_at_course(Course const& course) const
 {
 	// TODO: insert return statement here

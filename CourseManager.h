@@ -56,6 +56,7 @@ public:
 	 );
 	 std::pair<double,int> get_relative_grade_report_for_student(const User& student) const;
 	 bool is_course_code_available(std::string_view courseCode)const;
+	 void save_data_to_json(std::string const& path= "courses.json") const;
 	 json get_json() const;
 
 };

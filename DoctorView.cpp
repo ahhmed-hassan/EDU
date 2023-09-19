@@ -30,7 +30,11 @@ void DoctorView::Display() {
 		}
 	}
 }
-void DoctorView:: log_out(){}
+void DoctorView:: log_out()
+{
+	users->save_data_to_json();
+	courses->save_data_to_json();
+}
 void DoctorView:: list_courses(){}
 void DoctorView:: view_courses()
 {

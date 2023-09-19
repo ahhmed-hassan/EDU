@@ -85,6 +85,9 @@ void StudentView::Display()
 			view_courses(); break;
 		case 4:
 			grades_report(); break;
+		case 5:
+			log_out();
+			return;
 
 		default:
 			break;
@@ -132,6 +135,12 @@ void StudentView::register_in_course()
 	courses->add_new_student_usernameAndName_to_course(code, users->get_currentuser_usernameAndName());
 	std::cout << "You are enrolled in the course";
 
+}
+
+void StudentView::log_out()
+{
+	users->save_data_to_json();
+	courses->save_data_to_json();
 }
 
 void StudentView::sublist_courses()
