@@ -54,11 +54,7 @@ public:
 	size_t get_number_of_student_submitted_assignments(std::string_view studentUsername) const;
 	std::string get_grade_report_string(std::string_view studentUsername) const; 
 
-	void make_enum_based_action_on_assignment(
-		CourseAssignment const& courseAssingment,
-		const Assignment& assignment, 
-		std::string_view actionContent, 
-		AssignmentAction const& actionType);
+	
 	void make_enum_based_action_on_assignment(
 		
 		const Assignment& assignment,

@@ -177,17 +177,13 @@ std::string Course::get_grade_report_string(std::string_view studentUsername) co
 
 
 
-void Course::make_enum_based_action_on_assignment(CourseAssignment const& courseAssingment,const Assignment& assignment, std::string_view actionContent, AssignmentAction const& actionType)
-{
 
-	auto courseAssignmentIterator = std::ranges::find(courseAssignments, courseAssingment);
-	courseAssignmentIterator->make_enum_based_action_on_assignment(assignment, actionContent, actionType);
-	
-}
 
 void Course::make_enum_based_action_on_assignment(const Assignment& assignment, std::string_view actionContent, AssignmentAction const& actionType)
 {
-	auto courseAssignmentIterator = std::find(courseAssignments.begin(), courseAssignments.end(), assignment.get_content());
+	auto courseAssignmentIterator = std::find_if(courseAssignments.begin(), courseAssignments.end(), 
+		[&](const CourseAssignment& searchedCourseAss) {return searchedCourseAss.get_content() == assignment.get_content(); });
+
 	assert(courseAssignmentIterator != courseAssignments.end());
 	courseAssignmentIterator->make_enum_based_action_on_assignment(assignment, actionContent, actionType);
 }
@@ -212,15 +208,5 @@ bool Course::operator==(const Course& another) const
 //
 //}
 
-//void Course::RemoveStudent(int student_id)
-//{
-//	auto it = std::ranges::find(students_ids, student_id);
-//	assert(it != students_ids.end(), "Student Not Fund");
-//	students_ids.erase(it);
-//	return;
-//}
 
-//void Course::SetSolution(string_view sol)
-//{
-//	conte
-//}
+

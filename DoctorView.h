@@ -25,7 +25,7 @@ public:
 	//This function need to always ask the course abouth the information first, 
 	//cause it can happen that assignments for this course were updated before we don't know
 	void course_assignment_subList_from_course(Course const& course, CourseAssignment const& courseAssingment);
-	void assignment_sublist(Course const & course, CourseAssignment const& courseAssingment, Assignment const& assignment);
+	void assignment_sublist(Course const & course, Assignment const& assignment);
 	void LogOut();
 };
 

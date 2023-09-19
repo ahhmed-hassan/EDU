@@ -27,10 +27,7 @@ void CourseManager::remove_student(const Course& course, std::string_view studen
 //	courses_map[assignment.get_courseId()].remove_assignment(assignment);
 //}
 
-void CourseManager::make_enum_based_action_on_course_assignment(Course const& course, CourseAssignment const& courseAssingment,Assignment const& assignment, std::string_view action_content, const AssignmentAction& actionType)
-{
-	courses_map[course.get_code()].make_enum_based_action_on_assignment(courseAssingment,assignment, action_content, actionType);
-}
+
 
 void CourseManager::make_enum_based_action_on_course_assignment(Course const& course, Assignment const& assignment, std::string_view action_content, const AssignmentAction& actionType)
 {

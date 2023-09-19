@@ -98,8 +98,8 @@ void DoctorView::AddAssignment(Course course)
 	std::getline(std::cin, assigmentContent);
 	std::cout << "What is the total points of this assigment?\n"; int points; cin >> points;
 
-	auto studentnamesEnrolledAtThisCourse = users->get_students_names_enrolled_at_course(course);
-	courses->addAssignemntToCourse(course, assigmentContent, points);///*,users->GetCurrentUser().get_name()*/, studentnamesEnrolledAtThisCourse);
+	
+	courses->addAssignemntToCourse(course, assigmentContent, points);
 	std::cout << "You have added a new Assignment!\n";
 }
 
@@ -118,14 +118,14 @@ void DoctorView::course_assignment_subList_from_course(Course const& course, Cou
 		int assignmentChoice = ReadInt(0, (int)assignments.size()) -1;
 		if (assignmentChoice < 0)
 			return;
-		return assignment_sublist(course,courseAssingment, assignments[assignmentChoice]);
+		return assignment_sublist(course, assignments[assignmentChoice]);
 
 		//std::cout << assignments[choice - 1].doctor_detailed_view()<<endl;
 	
 	}
 
 }
-void DoctorView::assignment_sublist(Course const& course, CourseAssignment const& courseAssingment, Assignment const& assignment)
+void DoctorView::assignment_sublist(Course const& course, Assignment const& assignment)
 {
 	while (true)
 	{
@@ -137,14 +137,14 @@ void DoctorView::assignment_sublist(Course const& course, CourseAssignment const
 		case 1:
 		{
 			std::cout << "Enter your Feedback: \n"; cin >> actionContent;
-			courses->make_enum_based_action_on_course_assignment(course,courseAssingment ,assignment, actionContent, AssignmentAction::addFeedback);
+			courses->make_enum_based_action_on_course_assignment(course,assignment, actionContent, AssignmentAction::addFeedback);
 
 			break;
 		}
 		case 2:
 		{
 			std::cout << "Enter your Degree: \n"; cin >> actionContent;
-			courses->make_enum_based_action_on_course_assignment(course,courseAssingment,assignment, actionContent, AssignmentAction::addDegree);
+			courses->make_enum_based_action_on_course_assignment(course,assignment, actionContent, AssignmentAction::addDegree);
 
 			break;
 		}

@@ -10,15 +10,20 @@ StudentView::StudentView(StudentView&& another) noexcept
 
 void StudentView::CourseChoices(Course const& course)
 {
-	int choice = ShowReadMenu({ "Unregister from course","Show Assignments", "Back" });
-	switch (choice)
+	while (true)
 	{
-	case 1:
-		Unregister(course);
-		break;
-
-	default:
-		break;
+		int choice = ShowReadMenu({ "Unregister from course","Show Assignments", "Back" });
+		switch (choice)
+		{
+		case 1:
+			Unregister(course);
+			break;
+		case 2:
+			show_assignments_in_course(course);
+			break;
+		default:
+			return;
+		}
 	}
 }
 

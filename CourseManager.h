@@ -19,13 +19,7 @@ public:
 
 	// void remove_assignemnt_from_course(Assignment const& assignment);
 
-	 void make_enum_based_action_on_course_assignment(
-		 Course const& course,
-		 CourseAssignment const& courseAssingment,
-		 Assignment const& assignment, 
-		 std::string_view action_content, 
-		 const AssignmentAction& actionType
-	 );
+
 
 	 void make_enum_based_action_on_course_assignment(
 		 Course const& course,
