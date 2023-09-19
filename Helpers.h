@@ -9,10 +9,18 @@ using namespace std;
 
 inline nlohmann::json parse_json_from_file(std::string const& path)
 {
+	json res{};
 	std::ifstream input(path); 
 	if (not input)
 		throw std::runtime_error("Cannot open the file : " + path);
-	nlohmann::json res(nlohmann::json::parse(input));
+	try
+	{
+		 res=nlohmann::json::parse(input);
+	}
+	catch (const json::parse_error& )
+	{
+
+	}	
 	input.close();
 	return res; 
 }

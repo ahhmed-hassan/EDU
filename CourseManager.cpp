@@ -13,11 +13,15 @@ void CourseManager::load_database(std::string const& path)
 
 CourseManager::CourseManager(nlohmann::json const& courseManagerJson)
 {
-	for (const auto& courseJson : courseManagerJson)
+	if(not courseManagerJson.empty())
 	{
-		Course tmpCourse(courseJson);
-		std::string code(tmpCourse.get_code());
-		courses_map.insert({ code,std::move(tmpCourse) });
+
+		for (const auto& courseJson : courseManagerJson)
+		{
+			Course tmpCourse(courseJson);
+			std::string code(tmpCourse.get_code());
+			courses_map.insert({ code,std::move(tmpCourse) });
+		}
 	}
 }
 

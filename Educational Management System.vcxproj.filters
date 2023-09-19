@@ -69,9 +69,6 @@
     <ClCompile Include="CourseManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="DoctorManager.cpp">
-      <Filter>Source Files\Managers</Filter>
-    </ClCompile>
     <ClCompile Include="StudentManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
@@ -109,9 +106,6 @@
     </ClInclude>
     <ClInclude Include="DoctorView.h">
       <Filter>Header Files\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="DoctorManager.h">
-      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="StudentManager.h">
       <Filter>Header Files\Managers</Filter>

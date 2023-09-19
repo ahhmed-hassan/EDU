@@ -18,8 +18,8 @@ private:
 	bool isDataLoaded{};
 	
 public:
-	UserManager(std::string const& jsonPath);
-	UserManager(json const& jsonUsers="users.json");
+	UserManager(std::string const& jsonPath="users.json");
+	UserManager(json const& jsonUsers);
 	void Access_system();
 	void Login(); 
 	void Signup();

@@ -7,7 +7,7 @@ UserManager::UserManager(std::string const& jsonPath):UserManager(parse_json_fro
 
 UserManager::UserManager(json const& jsonUsers)
 {
-	if (not jsonUsers.is_null())
+	if (not jsonUsers.empty())
 	{
 	
 		for (const auto& jsonUser : jsonUsers)
