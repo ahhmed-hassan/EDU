@@ -1,7 +1,7 @@
 #include "EducationSystem.h"
 EducationSystem::EducationSystem() :
-	user_manager(std::make_unique<UserManager>()),
-	course_manager(std::make_unique<CourseManager>()) {}
+	user_manager(std::make_shared<UserManager>()),
+	course_manager(std::make_shared<CourseManager>()) {}
 
 void EducationSystem::LoadDataBase()
 {

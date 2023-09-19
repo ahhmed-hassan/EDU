@@ -13,12 +13,16 @@ doctorUsername(jsonCourse["docUsername"]),
 doc_name(jsonCourse["docName"]),
 name(jsonCourse["courseName"])
 {
-	auto jsonCoursesAssignments = jsonCourse["CourseAssignments"];
+	auto jsonCoursesAssignments = jsonCourse["courseAssignments"];
 	std::vector<CourseAssignment>tempCourseAssignments{};
 	
 	for (const auto& jsonCourseAssi : jsonCoursesAssignments)
 		tempCourseAssignments.emplace_back(CourseAssignment(jsonCourseAssi));
 	courseAssignments = std::move(tempCourseAssignments);
+
+	auto jsonUsernameAndNames = jsonCourse["usernameAndNames"];
+	for (const auto& jsonUsernameandName : jsonUsernameAndNames)
+		usernameAndNames.emplace_back(UsernameAndName(jsonUsernameandName));
 }
 
 std::string Course::doc_and_assignment_string(std::string_view studentUsername) const
@@ -128,11 +132,17 @@ json Course::get_json() const
 	res["docName"] = doc_name;
 	res["courseName"] = name;
 
-	json courseAssignmentArray;
+	json courseAssignmentArray, usernameAndNameArray;
+
 	for (const auto& courseAss : courseAssignments)
 		courseAssignmentArray.push_back(courseAss.get_json());
+	res["courseAssignments"] = courseAssignmentArray;
 
-	res["CourseAssignments"] = courseAssignmentArray;
+	for (const auto& usernameAndName : usernameAndNames)
+		usernameAndNameArray.push_back(usernameAndName.get_json());
+	res["usernameAndNames"] = usernameAndNameArray;
+
+	
 	return res;
 }
 

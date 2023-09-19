@@ -28,6 +28,9 @@ struct UsernameAndName
 	{
 		return username <=> another.username;
 	}
+	UsernameAndName(json const& usernameAndNameJson);
+	UsernameAndName(std::string_view username = "", std::string_view name = "");
+	nlohmann::json get_json() const;
 };
 
 class Assignment

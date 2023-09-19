@@ -7,13 +7,17 @@ UserManager::UserManager(std::string const& jsonPath):UserManager(parse_json_fro
 
 UserManager::UserManager(json const& jsonUsers)
 {
-	for (const auto& jsonUser : jsonUsers)
+	if (not jsonUsers.is_null())
 	{
-		User tmpUser(jsonUser); 
-		auto username = tmpUser.get_username(); 
-		username_to_user.insert({username, std::move(tmpUser)});
-	} 
-	isDataLoaded = true;
+	
+		for (const auto& jsonUser : jsonUsers)
+		{
+			User tmpUser(jsonUser);
+			auto username = tmpUser.get_username();
+			username_to_user.insert({ username, std::move(tmpUser) });
+		}
+		isDataLoaded = true;
+	}
 }
 void UserManager::load_database(std::string const& jsonPath)
 {

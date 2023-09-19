@@ -2,8 +2,9 @@
 using namespace std;
 
 
-#include<optional>
+#include "EducationSystem.h"
 int main() {
 	
-
+	EducationSystem system{};
+	system.Run();
 }

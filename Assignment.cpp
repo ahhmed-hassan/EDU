@@ -225,3 +225,21 @@ bool UsernameAndName::operator==(std::string_view anotherUsername) const
 {
 	return username == anotherUsername;
 }
+
+UsernameAndName::UsernameAndName(json const& usernameAndNameJson):
+	UsernameAndName(usernameAndNameJson["username"],usernameAndNameJson["name"])
+{
+
+}
+
+UsernameAndName::UsernameAndName(std::string_view username, std::string_view name):username(username), name(name)
+{
+}
+
+nlohmann::json UsernameAndName::get_json() const
+{
+	 nlohmann::json res{};
+	 res["username"] = username;
+	 res["name"] = name;
+	 return res; 
+}
