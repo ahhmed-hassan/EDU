@@ -172,6 +172,7 @@ void DoctorView:: add_courses()
 	std::string docUsername = users->get_currentuser_username();
 	std::string docName = users->get_currentuser_name();
 	courses->add_course(courseCode, courseName, docName, docUsername);
+	users->register_in_course(courseCode);
 	std::cout << "You have added a new course ! \n"; 
 
 }

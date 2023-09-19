@@ -117,7 +117,7 @@ std::pair<double, int> CourseManager::get_relative_grade_report_for_student(cons
 bool CourseManager::is_course_code_available(std::string_view courseCode) const
 {
 	std::string code = static_cast<std::string>(courseCode);
-	return courses_map.find(code) != courses_map.end();
+	return courses_map.find(code) == courses_map.end();
 	//return std::find(courses_map.cbegin(), courses_map.cend(), code) != courses_map.cend();
 }
 void CourseManager::save_data_to_json(std::string const& path) const

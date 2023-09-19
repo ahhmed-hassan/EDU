@@ -97,7 +97,7 @@ vector<std::string> UserManager::GetCurrentUserCourses() const
 
 void UserManager::register_in_course(std::string_view courseCode)
 {
-	assert(not is_current_user_doctor());
+	//assert(not is_current_user_doctor());
 	username_to_user[get_currentuser_username()].register_in_course(courseCode);
 }
 
