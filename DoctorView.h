@@ -17,15 +17,15 @@ public:
 	DoctorView(DoctorView&&) = default;
 	DoctorView( CourseManagerPtr cManger,  UserManagerPtr uManger);
 	void Display(); 
-	void ListCourses();
-	void AddCourses();
-	void ViewCourses();
-	void ShowAssigments(Course const& course);
-	void AddAssignment(Course course);
+	void list_courses();
+	void add_courses();
+	void view_courses();
+	void show_assignments(Course const& course);
+	void add_assignment(Course course);
 	//This function need to always ask the course abouth the information first, 
 	//cause it can happen that assignments for this course were updated before we don't know
 	void course_assignment_subList_from_course(Course const& course, CourseAssignment const& courseAssingment);
 	void assignment_sublist(Course const & course, Assignment const& assignment);
-	void LogOut();
+	void log_out();
 };
 

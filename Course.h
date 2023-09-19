@@ -33,7 +33,7 @@ public:
 	Course(json const& jsonCourse);
 	Course() = default;
 	std::string doc_and_assignment_string(std::string_view studentUsername) const;
-	std::string OverviewString() const;
+	std::string overview_string() const;
 
 	std::vector <std::string> get_assignments_contents() const;
 	size_t get_courseAssignments_number() const;

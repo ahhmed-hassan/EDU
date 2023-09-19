@@ -6,59 +6,59 @@ DoctorView::DoctorView(CourseManagerPtr cManger, UserManagerPtr uManger) :
 void DoctorView::Display() {
 	while(true)
 	{
-		int choice{ ShowReadMenu({"List Courses", "Add Courses", "View Courses", "LogOut"}) };
+		int choice{ show_read_menu({"List Courses", "Add Courses", "View Courses", "LogOut"}) };
 		switch (choice)
 		{
 		case 1:
 		{
-			ListCourses(); break;
+			list_courses(); break;
 		}
 		case 2:
 		{
-			AddCourses(); break;
+			add_courses(); break;
 		}
 		case 3:
 		{
-			ViewCourses(); break;
+			view_courses(); break;
 		}
 		case 4:
 		{
-			LogOut(); return;
+			log_out(); return;
 		}
 		default:
 			return;
 		}
 	}
 }
-void DoctorView:: LogOut(){}
-void DoctorView:: ListCourses(){}
-void DoctorView:: ViewCourses()
+void DoctorView:: log_out(){}
+void DoctorView:: list_courses(){}
+void DoctorView:: view_courses()
 {
 	
 	while(true)
 	{
 		//should it be put here or before the while loop?
-		auto const& doctorCourses = courses->getUserCourses(users->GetCurrentUser());
+		auto const& doctorCourses = courses->getUserCourses(users->get_current_user());
 		int i = 1;
 		for (const auto& course : doctorCourses)
 		{
-			cout << i << "- " << course.OverviewString() << "\n";
+			cout << i << "- " << course.overview_string() << "\n";
 		}
 		std::cout << "choose course num or 0 to go back\n";
-		int courseChoice = ReadInt(0, (int)doctorCourses.size()) - 1;
+		int courseChoice = read_int(0, (int)doctorCourses.size()) - 1;
 
 		if (courseChoice < 0)
 			return;
 
-		int choice2 = ShowReadMenu({ "Create Assignment", "Show Assignment","Back" });
+		int choice2 = show_read_menu({ "Create Assignment", "Show Assignment","Back" });
 		switch (choice2)
 		{
 		case 1:
-			ShowAssigments(doctorCourses[courseChoice]);
-			return ViewCourses();
+			show_assignments(doctorCourses[courseChoice]);
+			return view_courses();
 		case 2:
-			AddAssignment(doctorCourses[courseChoice]);
-			return ViewCourses();
+			add_assignment(doctorCourses[courseChoice]);
+			return view_courses();
 		default:
 			break;
 		}
@@ -66,7 +66,7 @@ void DoctorView:: ViewCourses()
 
 
 }
-void DoctorView::ShowAssigments(Course const & course)
+void DoctorView::show_assignments(Course const & course)
 {
 	while(true)
 	{
@@ -79,7 +79,7 @@ void DoctorView::ShowAssigments(Course const & course)
 	
 		std::cout << "Choose the ith Assignment [1-" << courseAssignments.size() << "]\n";
 		std::cout << "or 0 to go back";
-		int choice = ReadInt(0, (int)courseAssignments.size() - 1) - 1;
+		int choice = read_int(0, (int)courseAssignments.size() - 1) - 1;
 
 		if (choice < 0)
 			return;
@@ -90,16 +90,16 @@ void DoctorView::ShowAssigments(Course const & course)
 
 }
 
-void DoctorView::AddAssignment(Course course)
+void DoctorView::add_assignment(Course course)
 {
-	assert(users->GetCurrentUser().isDoctor());
+	assert(users->is_current_user_doctor());
 	std::string assigmentContent; 
 	std::cout << "Please enter your new assigment\n";
 	std::getline(std::cin, assigmentContent);
 	std::cout << "What is the total points of this assigment?\n"; int points; cin >> points;
 
 	
-	courses->addAssignemntToCourse(course, assigmentContent, points);
+	courses->add_assignment_to_course(course, assigmentContent, points);
 	std::cout << "You have added a new Assignment!\n";
 }
 
@@ -115,7 +115,7 @@ void DoctorView::course_assignment_subList_from_course(Course const& course, Cou
 			std::cout <<++count<<"- "<< assignment.doctor_Overview() << "\n";
 
 		std::cout << "choose the ith assignment or 0 to cancel";
-		int assignmentChoice = ReadInt(0, (int)assignments.size()) -1;
+		int assignmentChoice = read_int(0, (int)assignments.size()) -1;
 		if (assignmentChoice < 0)
 			return;
 		return assignment_sublist(course, assignments[assignmentChoice]);
@@ -129,7 +129,7 @@ void DoctorView::assignment_sublist(Course const& course, Assignment const& assi
 {
 	while (true)
 	{
-		int assignmentMenuChoice = ShowReadMenu({ "Add Feedback","Add Degree","Return" });
+		int assignmentMenuChoice = show_read_menu({ "Add Feedback","Add Degree","Return" });
 		std::string actionContent;
 
 		switch (assignmentMenuChoice)
@@ -156,7 +156,7 @@ void DoctorView::assignment_sublist(Course const& course, Assignment const& assi
 
 	}
 }
-void DoctorView:: AddCourses()
+void DoctorView:: add_courses()
 {
 	assert(users->is_current_user_doctor());
 	std::cout << "What is the course name?\n"; std::string courseName{}; std::cin >> courseName; 

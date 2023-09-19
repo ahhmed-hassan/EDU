@@ -36,7 +36,7 @@ std::string Course::doc_and_assignment_string(std::string_view studentUsername) 
 	return std::move(res.str());
 }
 
-std::string Course::OverviewString() const
+std::string Course::overview_string() const
 {
 	std::string res{}; 
 	res += "Course "; 

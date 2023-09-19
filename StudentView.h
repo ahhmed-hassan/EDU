@@ -14,16 +14,16 @@ public:
 	StudentView(CourseManagerPtr cManger, UserManagerPtr uManger);
 	StudentView(StudentView&&) noexcept;
 	void Display();
-	void ListCourses();
-	void ViewCourses(); 
-	void RegisterInCourse();
+	void list_courses();
+	void view_courses(); 
+	void register_in_course();
 	//At this point I already know the courses belongs to the same user
-	void SubListCourses();
-	void Unregister(Course const& course);
-	void CourseChoices(Course const& course);
+	void sublist_courses();
+	void unregister(Course const& course);
+	void course_choices(Course const& course);
 	void assignment_subList(const Course& course, const Assignment& assignment);
 	void show_assignments_in_course(Course const& course);
-	void GradesReport();
+	void grades_report();
 	
 	
 };

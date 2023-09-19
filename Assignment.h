@@ -35,10 +35,10 @@ class Assignment
 private:
 	int assignmentId{};
 	std::string content{};
-	std::string Feedback{};
+	std::string feedback{};
 	std::string solution{};
 	std::string answer{};
-	std::string student_user_name {};
+	std::string studentUsername {};
 	std::string studentName{};
 	std::optional<double> grade{};
 	 int total{};
@@ -72,11 +72,11 @@ public:
 	
 	auto operator<=>(const Assignment& another) const->std::strong_ordering
 	{
-		return std::tie(student_user_name, content) <=> std::tie(another.student_user_name, another.content);
+		return std::tie(studentUsername, content) <=> std::tie(another.studentUsername, another.content);
 	};
 	bool operator==(const Assignment&) const;
 
-	std::string StudentString() const;
+	std::string student_string() const;
 
 	std::string doctor_Overview() const;
 

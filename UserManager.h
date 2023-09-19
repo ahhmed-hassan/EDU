@@ -25,7 +25,7 @@ public:
 	void LoadDataBase(); 
 	void UpdateDataBase(const User& user);
 	void unregister_student_from_course(User const& student, std::string_view courseCode);
-	const User& GetCurrentUser() const;
+	const User& get_current_user() const;
 	void register_in_course( std::string_view courseCode);
 	std::string get_currentuser_username() const; 
 	std::string get_currentuser_name() const; 

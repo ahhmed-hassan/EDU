@@ -18,7 +18,7 @@ void UserManager::LoadDataBase()
 }
 
 void UserManager::Access_system() {
-	int choice = ShowReadMenu({ "Log In", "Sign up" ,"Shut Down"});
+	int choice = show_read_menu({ "Log In", "Sign up" ,"Shut Down"});
 	switch (choice) {
 	case 1:
 	{Login(); break; }
@@ -58,7 +58,7 @@ void UserManager::Signup() {
 
 	
 	username_to_user[get_currentuser_username()] = current_user;
-	UpdateDataBase(current_user);
+	//UpdateDataBase(current_user);
 }
 void UserManager::UpdateDataBase(const User& user) {
 	std::string line = user.to_string();
@@ -72,14 +72,14 @@ void UserManager::unregister_student_from_course(User const& student, std::strin
 
 }
 
-const User& UserManager:: GetCurrentUser() const
+const User& UserManager:: get_current_user() const
 {
 	return current_user;
 }
 
 vector<std::string> UserManager::GetCurrentUserCourses() const
 {
-	return GetCurrentUser().get_courses();
+	return get_current_user().get_courses();
 }
 
 void UserManager::register_in_course(std::string_view courseCode)
@@ -90,12 +90,12 @@ void UserManager::register_in_course(std::string_view courseCode)
 
 std::string UserManager::get_currentuser_username() const
 {
-	return GetCurrentUser().get_username();
+	return get_current_user().get_username();
 }
 
 std::string UserManager::get_currentuser_name() const
 {
-	return GetCurrentUser().get_name(); 
+	return get_current_user().get_name(); 
 }
 
 UsernameAndName UserManager::get_currentuser_usernameAndName() const
@@ -126,6 +126,6 @@ vector<std::string> const& UserManager::get_students_names_enrolled_at_course(Co
 
 bool UserManager::is_current_user_doctor() const
 {
-	return GetCurrentUser().isDoctor();
+	return get_current_user().isDoctor();
 }
 

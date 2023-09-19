@@ -1,5 +1,5 @@
 #include "CourseManager.h"
-void CourseManager::LoadDataBasee()
+void CourseManager::load_database()
 {
 	return;
 }
@@ -56,11 +56,11 @@ std::optional<std::string> CourseManager::get_course_overview(std::string_view c
 	std::optional<std::string> res{};
 	auto it = courses_map.find(std::string(courseCode));
 	if (it != courses_map.end())
-		res = it->second.OverviewString();
+		res = it->second.overview_string();
 	return res; 
 }
 
-void CourseManager::addAssignemntToCourse
+void CourseManager::add_assignment_to_course
 (
 	Course const& course, 
 	std::string_view content,

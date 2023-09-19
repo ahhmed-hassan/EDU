@@ -24,10 +24,10 @@ using std::endl;
 
 bool Assignment::operator==(const Assignment& another) const
 {
-	return std::tie(student_user_name,content) == std::tie(another.student_user_name,another.content);
+	return std::tie(studentUsername,content) == std::tie(another.studentUsername,another.content);
 }
 
-std::string Assignment::StudentString() const
+std::string Assignment::student_string() const
 {
 	std::ostringstream res{};
 	
@@ -66,7 +66,7 @@ std::string Assignment::doctor_Overview() const
 std::string Assignment::doctor_detailed_view() const
 {
 	std::ostringstream res{};
-	res << "Your Feedback is " << Feedback<<"\n";
+	res << "Your Feedback is " << feedback<<"\n";
 	res << "Student Solution: " << solution << endl;
 	return res.str(); 
 }
@@ -90,7 +90,7 @@ Assignment::Assignment
 	std::string_view studentName
 	
 )
-	:content(content), total(total), studentName(studentName), student_user_name(studentUsername)
+	:content(content), total(total), studentName(studentName), studentUsername(studentUsername)
 {
 	
 }
@@ -106,10 +106,10 @@ Assignment::Assignment(std::string_view content, int total):content(content),tot
 
 Assignment::Assignment(json const& jsonAssignment) :
 	studentName(jsonAssignment["studentName"]),
-	student_user_name(jsonAssignment["studentUsername"]),
+	studentUsername(jsonAssignment["studentUsername"]),
 	content(jsonAssignment["content"]),
 	submitted(jsonAssignment["isSubmitted"]),
-	Feedback(jsonAssignment["feedback"]),
+	feedback(jsonAssignment["feedback"]),
 	solution(jsonAssignment["solution"]),
 	total(jsonAssignment["total"])
 {
@@ -122,7 +122,7 @@ Assignment::Assignment(json const& jsonAssignment) :
 
 std::string Assignment::get_student_username() const
 {
-	return student_user_name;
+	return studentUsername;
 }
 
 
@@ -169,7 +169,7 @@ void Assignment::set_solution(std::string_view solution)
 
 void Assignment::set_feedback(std::string_view feedback)
 {
-	this->Feedback = feedback;
+	this->feedback = feedback;
 }
 
 std::string Assignment::all_info_student_string() const
@@ -181,8 +181,8 @@ std::string Assignment::all_info_student_string() const
 	res << " Submitted--";
 	if (!solution.empty())
 		res << "Your Solution is: "<<solution<<"\n";
-	if (!Feedback.empty())
-		res << "Feedback is: " << Feedback << "\n";
+	if (!feedback.empty())
+		res << "Feedback is: " << feedback << "\n";
 
 	res << "degree is: ";
 	if (grade.has_value())
@@ -198,10 +198,10 @@ json Assignment::get_json() const
 {
 	json res{};
 	res["studentName"] = studentName;
-	res["studentUsername"] = student_user_name;
+	res["studentUsername"] = studentUsername;
 	res["content"] = content;
 	res["isSubmitted"] = submitted;
-	res["feedback"] = Feedback;
+	res["feedback"] = feedback;
 	res["solution"] = solution;
 	res["total"] = total;
 	if (grade.has_value())

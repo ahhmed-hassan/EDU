@@ -67,7 +67,7 @@ inline int ToInt(const string& str) {
 	return num;
 }
 
-inline int ReadInt(int low, int high) {
+inline int read_int(int low, int high) {
 	cout << "\nEnter number in range " << low << " - " << high << ": ";
 	int value;
 
@@ -77,13 +77,13 @@ inline int ReadInt(int low, int high) {
 		return value;
 
 	cout << "ERROR: invalid number...Try again\n";
-	return ReadInt(low, high);
+	return read_int(low, high);
 }
 
-inline int ShowReadMenu(const vector<string_view>& choices, std::string_view defaultTiltel="Menu") {
+inline int show_read_menu(const vector<string_view>& choices, std::string_view defaultTiltel="Menu") {
 	cout << "\n"<<defaultTiltel<<":\n";
 	for (int ch = 0; ch < (int)choices.size(); ++ch) {
 		cout << "\t" << ch + 1 << ": " << choices[ch] << "\n";
 	}
-	return ReadInt(1, (int)choices.size());
+	return read_int(1, (int)choices.size());
 }

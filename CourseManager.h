@@ -10,7 +10,7 @@ class CourseManager
 private: 
 	std::map<std::string, Course> courses_map{};//course code to course
 public:
-	 void LoadDataBasee();
+	 void load_database();
 	 CourseManager(json const& courseManagerJson);
 	 CourseManager() = default;
 	 /*inline*/ std::vector<Course> getUserCourses(User const& user) const  ;
@@ -41,7 +41,7 @@ public:
 
 	 std::optional<std::string> get_course_overview(std::string_view courseCode) const;
 
-	 void addAssignemntToCourse
+	 void add_assignment_to_course
 	 (
 		 Course const& course,
 		 std::string_view content,
