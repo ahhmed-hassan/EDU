@@ -68,7 +68,7 @@ public:
 
 	//void remove_assignment(const Assignment& assignemnt);
 
-	//void RemoveStudent(int student_id);
+	void remove_student(std::string_view studentUsername);
 	//void SetSolution();
 	bool operator==(const Course& another) const; 
 

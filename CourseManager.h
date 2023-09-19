@@ -15,7 +15,7 @@ public:
 	 CourseManager() = default;
 	 /*inline*/ std::vector<Course> getUserCourses(User const& user) const  ;
 	 void SubmitSolution(int, std::string_view);
-	 void RemoveStudent(int student_id, int course_id);
+	 void remove_student(const Course& course, std::string_view studentUsername);
 
 	// void remove_assignemnt_from_course(Assignment const& assignment);
 

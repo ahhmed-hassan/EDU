@@ -65,6 +65,13 @@ void UserManager::UpdateDataBase(const User& user) {
 	WriteFileLines("users.txt", {line});
 }
 
+void UserManager::unregister_student_from_course(User const& student, std::string_view courseCode)
+{
+	assert(not student.isDoctor());
+	username_to_user[student.get_username()].unregister_from_course(courseCode);
+
+}
+
 const User& UserManager:: GetCurrentUser() const
 {
 	return current_user;

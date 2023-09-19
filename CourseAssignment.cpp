@@ -106,3 +106,10 @@ int CourseAssignment::get_total() const
 {
 	return totalPoints;
 }
+
+void CourseAssignment::remove_student(std::string_view studentUsername)
+{
+	auto numErasedElements = std::erase_if(assignments,
+		[&](const Assignment& ass) {return ass.get_student_username() == studentUsername; });
+	assert(numErasedElements > 0);
+}

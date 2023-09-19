@@ -143,8 +143,9 @@ void StudentView::SubListCourses()
 
 void StudentView::Unregister(Course const& course)
 {
-	//users->Unregister(course_id, student);
-	//courses->RemoveStudent(student.getId(), course_id);
+
+	courses->remove_student(course, users->get_currentuser_username());
+	users->unregister_student_from_course(users->GetCurrentUser(), course.get_code());
 }
 
 void StudentView::ViewCourses()

@@ -42,7 +42,7 @@ public:
 
 	bool is_enrolled_at_course(std::string_view courseId) const;
 
-	void Unregister(int course_id);
+	void unregister_from_course(std::string_view courseCode);
 
 	void register_in_course(std::string_view courseCode);
 

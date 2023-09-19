@@ -80,8 +80,8 @@ inline int ReadInt(int low, int high) {
 	return ReadInt(low, high);
 }
 
-inline int ShowReadMenu(const vector<string_view>& choices) {
-	cout << "\nMenu:\n";
+inline int ShowReadMenu(const vector<string_view>& choices, std::string_view defaultTiltel="Menu") {
+	cout << "\n"<<defaultTiltel<<":\n";
 	for (int ch = 0; ch < (int)choices.size(); ++ch) {
 		cout << "\t" << ch + 1 << ": " << choices[ch] << "\n";
 	}

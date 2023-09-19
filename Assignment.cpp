@@ -24,7 +24,7 @@ using std::endl;
 
 bool Assignment::operator==(const Assignment& another) const
 {
-	return assignmentId == another.assignmentId;
+	return std::tie(student_user_name,content) == std::tie(another.student_user_name,another.content);
 }
 
 std::string Assignment::StudentString() const
@@ -216,5 +216,12 @@ bool Assignment::is_submitted() const
 	return submitted;
 }
 
+bool UsernameAndName::operator==(UsernameAndName const& another) const
+{
+	return username==another.username;
+}
 
-
+bool UsernameAndName::operator==(std::string_view anotherUsername) const
+{
+	return username == anotherUsername;
+}

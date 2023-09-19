@@ -84,6 +84,12 @@ bool User::is_enrolled_at_course(std::string_view courseCode) const
 	return std::ranges::find(coursesCodes, courseCode) != std::end(coursesCodes);
 }
 
+void User::unregister_from_course(std::string_view courseCode)
+{
+	auto erasedCourses = std::erase_if(coursesCodes, [&](const std::string& code) {return code == courseCode; });
+	assert(erasedCourses > 0);
+}
+
 void User::register_in_course(std::string_view courseCode)
 {
 	assert(std::ranges::find(coursesCodes,courseCode) == coursesCodes.end());

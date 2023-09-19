@@ -192,6 +192,12 @@ void Course::make_enum_based_action_on_assignment(const Assignment& assignment, 
 	courseAssignmentIterator->make_enum_based_action_on_assignment(assignment, actionContent, actionType);
 }
 
+void Course::remove_student(std::string_view studentUsername)
+{
+	for (auto& courseAssignment : courseAssignments)
+		courseAssignment.remove_student(studentUsername);
+}
+
 bool Course::operator==(const Course& another) const
 {
 	return code == another.code;

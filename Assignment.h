@@ -22,6 +22,12 @@ struct UsernameAndName
 {
 	std::string username{};
 	std::string name{};
+	bool operator==(UsernameAndName const& another) const;
+	bool operator==(std::string_view anotherUsername) const; 
+	auto operator<=>(const UsernameAndName& another) const->std::weak_ordering
+	{
+		return username <=> another.username;
+	}
 };
 
 class Assignment
@@ -66,7 +72,7 @@ public:
 	
 	auto operator<=>(const Assignment& another) const->std::strong_ordering
 	{
-		return assignmentId <=> another.assignmentId;
+		return std::tie(student_user_name, content) <=> std::tie(another.student_user_name, another.content);
 	};
 	bool operator==(const Assignment&) const;
 

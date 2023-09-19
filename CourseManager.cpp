@@ -18,6 +18,10 @@ void CourseManager::SubmitSolution(int course_id, std::string_view solution)
 {
 	
 }
+void CourseManager::remove_student(const Course& course, std::string_view studentUsername)
+{
+	courses_map[course.get_code()].remove_student(studentUsername);
+}
 //void CourseManager::remove_assignemnt_from_course(Assignment const& assignment)
 //{
 //	courses_map[assignment.get_courseId()].remove_assignment(assignment);
