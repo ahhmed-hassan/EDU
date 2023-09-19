@@ -10,8 +10,8 @@ using VariantView = std::variant<std::monostate,StudentView, DoctorView>;
 class EducationSystem
 {
 private:
-	unique_ptr<UserManager> user_manager{};
-	unique_ptr <CourseManager> course_manager{};
+	shared_ptr<UserManager> user_manager{};
+	shared_ptr <CourseManager> course_manager{};
 	VariantView view{};
 	struct var_visitor
 	{

@@ -15,14 +15,15 @@ class UserManager
 private:
 	std::map<std::string, User> username_to_user{};
 	User current_user{};
-	int last_id{};
+	bool isDataLoaded{};
+	
 public:
-	UserManager();
-	UserManager(json const& jsonUsers);
+	UserManager(std::string const& jsonPath);
+	UserManager(json const& jsonUsers="users.json");
 	void Access_system();
 	void Login(); 
 	void Signup();
-	void LoadDataBase(); 
+	void load_database(std::string const& jsonPath="users.json");
 	void UpdateDataBase(const User& user);
 	void unregister_student_from_course(User const& student, std::string_view courseCode);
 	const User& get_current_user() const;

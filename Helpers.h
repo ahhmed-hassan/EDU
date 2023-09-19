@@ -4,7 +4,21 @@
 #include<iostream>
 #include<vector>
 #include <string_view>
-using namespace std;
+#include "nlohman/json.hpp"
+using namespace std; 
+
+inline nlohmann::json parse_json_from_file(std::string const& path)
+{
+	std::ifstream input(path); 
+	if (not input)
+		throw std::runtime_error("Cannot open the file : " + path);
+	nlohmann::json res(nlohmann::json::parse(input));
+	input.close();
+	return res; 
+}
+
+
+
 inline vector<string> ReadFileLines(const string& path) {
 	vector<string> lines;
 

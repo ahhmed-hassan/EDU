@@ -1,6 +1,6 @@
 #include "StudentView.h"
 StudentView::StudentView(CourseManagerPtr cManger, UserManagerPtr uManger):
-	courses(cManger), users(uManger){}
+	courses(std::move(cManger)), users(std::move(uManger)){}
 
 StudentView::StudentView(StudentView&& another) noexcept
 {

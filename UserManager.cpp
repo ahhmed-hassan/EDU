@@ -1,20 +1,29 @@
 #include "UserManager.h"
 #include <assert.h>
-UserManager::UserManager():current_user(username_to_user["ahmed"]) {
-	last_id = 0; 
+
+UserManager::UserManager(std::string const& jsonPath):UserManager(parse_json_from_file(jsonPath))
+{
 }
-UserManager::UserManager(json const& jsonUsers):current_user(username_to_user["ahmed"])
+
+UserManager::UserManager(json const& jsonUsers)
 {
 	for (const auto& jsonUser : jsonUsers)
 	{
 		User tmpUser(jsonUser); 
 		auto username = tmpUser.get_username(); 
 		username_to_user.insert({username, std::move(tmpUser)});
-	}
+	} 
+	isDataLoaded = true;
 }
-void UserManager::LoadDataBase()
+void UserManager::load_database(std::string const& jsonPath)
 {
-
+	nlohmann::json usersJson(parse_json_from_file(jsonPath));
+	for (const auto& jsonUser : usersJson)
+	{
+		User tmpUser(jsonUser);
+		auto username = tmpUser.get_username();
+		username_to_user.insert({ username, std::move(tmpUser) });
+	}
 }
 
 void UserManager::Access_system() {

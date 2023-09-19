@@ -1,10 +1,17 @@
 #include "CourseManager.h"
-void CourseManager::load_database()
+void CourseManager::load_database(std::string const& path)
 {
-	return;
+	nlohmann::json courseManagerJson = parse_json_from_file(path);
+	for (const auto& courseJson : courseManagerJson)
+	{
+		Course tmpCourse(courseJson);
+		std::string code(tmpCourse.get_code());
+		courses_map.insert({ code,std::move(tmpCourse) });
+	}
+	
 }
 
-CourseManager::CourseManager(json const& courseManagerJson)
+CourseManager::CourseManager(nlohmann::json const& courseManagerJson)
 {
 	for (const auto& courseJson : courseManagerJson)
 	{
@@ -12,6 +19,11 @@ CourseManager::CourseManager(json const& courseManagerJson)
 		std::string code(tmpCourse.get_code());
 		courses_map.insert({ code,std::move(tmpCourse) });
 	}
+}
+
+CourseManager::CourseManager(std::string const& path):CourseManager(parse_json_from_file(path))
+{
+	
 }
 
 void CourseManager::SubmitSolution(int course_id, std::string_view solution)

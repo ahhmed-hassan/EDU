@@ -1,6 +1,9 @@
 #pragma once
 #include "Course.h"
+#include "Helpers.h"
 #include <map>
+#include <fstream>
+
 #include <vector>
 using CoursePtr = std::shared_ptr<Course>;
 
@@ -9,10 +12,12 @@ class CourseManager
 {
 private: 
 	std::map<std::string, Course> courses_map{};//course code to course
+	void load_database(std::string const& path = "courses.json");
 public:
-	 void load_database();
+	
 	 CourseManager(json const& courseManagerJson);
-	 CourseManager() = default;
+	 CourseManager(std::string const& path = "courses.json");
+	// CourseManager() = default;
 	 /*inline*/ std::vector<Course> getUserCourses(User const& user) const  ;
 	 void SubmitSolution(int, std::string_view);
 	 void remove_student(const Course& course, std::string_view studentUsername);
