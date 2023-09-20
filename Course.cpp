@@ -198,10 +198,12 @@ void Course::make_enum_based_action_on_assignment(const Assignment& assignment, 
 	courseAssignmentIterator->make_enum_based_action_on_assignment(assignment, actionContent, actionType);
 }
 
-void Course::remove_student(std::string_view studentUsername)
+void Course::remove_student(std::string const& studentUsername)
 {
 	for (auto& courseAssignment : courseAssignments)
 		courseAssignment.remove_student(studentUsername);
+	auto erasedStudents= std::erase(usernameAndNames, studentUsername);
+	assert(erasedStudents > 0);
 }
 
 bool Course::operator==(const Course& another) const

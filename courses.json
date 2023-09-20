@@ -1,10 +1,23 @@
 [
     {
+        "code": "aq",
+        "courseAssignments": null,
+        "courseName": "aq",
+        "docName": "ahmed",
+        "docUsername": "ah",
+        "usernameAndNames": null
+    },
+    {
         "code": "mm",
         "courseAssignments": null,
         "courseName": "Math",
         "docName": "ahmed",
         "docUsername": "ah",
-        "usernameAndNames": null
+        "usernameAndNames": [
+            {
+                "name": "ahmed",
+                "username": "medo"
+            }
+        ]
     }
 ]

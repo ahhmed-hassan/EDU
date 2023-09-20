@@ -167,6 +167,7 @@ void StudentView::unregister(Course const& course)
 
 	courses->remove_student(course, users->get_currentuser_username());
 	users->unregister_student_from_course(users->get_current_user(), course.get_code());
+	std::cout << "You have unregistered from the course!\n";
 }
 
 void StudentView::view_courses()

@@ -221,7 +221,7 @@ bool UsernameAndName::operator==(UsernameAndName const& another) const
 	return username==another.username;
 }
 
-bool UsernameAndName::operator==(std::string_view anotherUsername) const
+bool UsernameAndName::operator==(std::string const& anotherUsername) const
 {
 	return username == anotherUsername;
 }

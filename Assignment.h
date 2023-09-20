@@ -23,7 +23,7 @@ struct UsernameAndName
 	std::string username{};
 	std::string name{};
 	bool operator==(UsernameAndName const& another) const;
-	bool operator==(std::string_view anotherUsername) const; 
+	bool operator==(std::string const& anotherUsername) const; 
 	auto operator<=>(const UsernameAndName& another) const->std::weak_ordering
 	{
 		return username <=> another.username;

@@ -90,7 +90,7 @@ void UserManager::unregister_student_from_course(User const& student, std::strin
 
 const User& UserManager:: get_current_user() const
 {
-	return current_user;
+	return username_to_user.at(current_user.get_username());
 }
 
 vector<std::string> UserManager::GetCurrentUserCourses() const

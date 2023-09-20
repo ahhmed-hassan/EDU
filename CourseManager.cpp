@@ -36,7 +36,7 @@ void CourseManager::SubmitSolution(int course_id, std::string_view solution)
 {
 	
 }
-void CourseManager::remove_student(const Course& course, std::string_view studentUsername)
+void CourseManager::remove_student(const Course& course, std::string const& studentUsername)
 {
 	courses_map[course.get_code()].remove_student(studentUsername);
 }
@@ -134,10 +134,10 @@ void CourseManager::save_data_to_json(std::string const& path) const
 	std::ofstream output(path); 
 	if (not output.is_open())
 		throw std::runtime_error("Cannot open the file " + path);
-	json::error_handler_t::replace;
+	
 	try
 	{
-		output << jsonData.dump(4,' ',false,json::error_handler_t::replace) << std::endl;
+		output << jsonData.dump(4) << std::endl;
 	}
 	catch (const std::exception& e)
 	{
