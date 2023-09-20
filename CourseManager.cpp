@@ -38,6 +38,12 @@ void CourseManager::remove_student(const Course& course, std::string_view studen
 {
 	courses_map[course.get_code()].remove_student(studentUsername);
 }
+std::vector<std::string> CourseManager::get_user_courses_overview(const User& user) const
+{
+	auto const userCourses = getUserCourses(user);
+	auto overviews = userCourses | views::transform([](const Course& course) {return course.overview_string(); });
+	return std::vector<std::string>{overviews.begin(), overviews.end()};
+}
 //void CourseManager::remove_assignemnt_from_course(Assignment const& assignment)
 //{
 //	courses_map[assignment.get_courseId()].remove_assignment(assignment);

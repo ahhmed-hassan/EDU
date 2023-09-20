@@ -111,13 +111,16 @@ void StudentView::grades_report()
 void StudentView::list_courses()
 {
 	std::vector<Course> const& user_courses= courses->getUserCourses(users->get_current_user()) ;
-	std::cout << "My Courses:\n";
-	int i = 0;
-	for (auto course : user_courses)
-		std::cout << ++i<<"- "<<course.overview_string() << endl;
+	auto coursesOverviews = user_courses
+		| std::views::transform([](const Course& course) {return course.overview_string(); });
+
+	int coursesChoice= show_read_menu(to_vector(coursesOverviews), "Your Courses Are",true,true)-1;
+	if (coursesChoice == -1)
+		return; 
+	std::cout << user_courses[coursesChoice].all_info_student_string(users->get_currentuser_username()) << endl;
 		
-	std::cout << endl; 
-	return sublist_courses();
+	/*std::cout << endl; 
+	return sublist_courses();*/
 
 }
 
@@ -165,23 +168,27 @@ void StudentView::unregister(Course const& course)
 void StudentView::view_courses()
 {
 	//std::cout<<"Choose the ith [1"<<
-	std::cout << "Your Courses List:\n";
+	
 	auto userCourses = courses->getUserCourses(users->get_current_user());
-	int i = 0;
+	auto coursesOverviews = userCourses |
+		std::views::transform([](const Course& course) {return course.overview_string(); });
+	int coursesChoice = show_read_menu(to_vector(coursesOverviews), "Your Courses", true, true);
+	/*int i = 0;
 	for (const auto& course : userCourses)
 		std::cout << ++i << " -)" << course.overview_string() << std::endl;
 	std::cout << "choose the ith course or 0 to cancel\n";
-	int courseChoice = read_int(0, (int)userCourses.size())-1;
-	if (courseChoice < 0)
+	int courseChoice = read_int(0, (int)userCourses.size())-1;*/
+
+	if (coursesChoice  ==-1)
 		return; 
-	std::cout << userCourses[courseChoice].doc_and_assignment_string(users->get_currentuser_username());
+	std::cout << userCourses[coursesChoice].doc_and_assignment_string(users->get_currentuser_username());
 	std::cout << "Choose the ith Assignment or 0 to cancel\n";
 
-	int assignmentChoice = read_int(0, (int)userCourses[courseChoice].get_courseAssignments_number())-1;
+	int assignmentChoice = read_int(0, (int)userCourses[coursesChoice].get_courseAssignments_number())-1;
 	if (assignmentChoice < 0)
 		return;
 
-	auto userAssignments = userCourses[courseChoice].get_user_assignments(users->get_currentuser_username());
+	auto userAssignments = userCourses[coursesChoice].get_user_assignments(users->get_currentuser_username());
 	auto chosenAssignment = userAssignments[assignmentChoice];
 
 	//users->

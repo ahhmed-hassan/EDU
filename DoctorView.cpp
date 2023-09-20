@@ -43,15 +43,20 @@ void DoctorView:: view_courses()
 	{
 		//should it be put here or before the while loop?
 		auto const& doctorCourses = courses->getUserCourses(users->get_current_user());
-		int i = 1;
+	
+		auto doctorCoursesOverviews = doctorCourses |
+			std::views::transform([](const Course& course) {return course.overview_string(); });
+			
+		int courseChoice= show_read_menu(to_vector(doctorCoursesOverviews), "Your Courses Are: ", true, true) - 1;
+		/*int i = 1;
 		for (const auto& course : doctorCourses)
 		{
 			cout << i << "- " << course.overview_string() << "\n";
 		}
 		std::cout << "choose course num or 0 to go back\n";
-		int courseChoice = read_int(0, (int)doctorCourses.size()) - 1;
+		int courseChoice = read_int(0, (int)doctorCourses.size()) - 1;*/
 
-		if (courseChoice < 0)
+		if (courseChoice ==-1)
 			return;
 
 		int choice2 = show_read_menu({ "Create Assignment", "Show Assignment","Back" });
@@ -59,12 +64,12 @@ void DoctorView:: view_courses()
 		{
 		case 1:
 			show_assignments(doctorCourses[courseChoice]);
-			return view_courses();
+			break;
 		case 2:
 			add_assignment(doctorCourses[courseChoice]);
-			return view_courses();
-		default:
 			break;
+		default:
+			return;
 		}
 	}
 
@@ -76,16 +81,19 @@ void DoctorView::show_assignments(Course const & course)
 	{
 	//	const auto& assignments = course.get_assignments();
 		auto courseAssignments = course.get_course_assignments();
+		auto courseAssignmentsContents = courseAssignments | 
+			std::views::transform([](const CourseAssignment& ass) {return ass.get_content(); });
 		//auto assignmentContents = course.get_assignments_contents();
-		int j = 0; 
+	/*	int j = 0; 
 		for (const auto& courseAssignment : courseAssignments)
 			std::cout << ++j << "- Assignment has content: " << courseAssignment.get_content() << "\n";
 	
 		std::cout << "Choose the ith Assignment [1-" << courseAssignments.size() << "]\n";
 		std::cout << "or 0 to go back";
-		int choice = read_int(0, (int)courseAssignments.size() - 1) - 1;
+		int choice = read_int(0, (int)courseAssignments.size() - 1) - 1;*/
+		int choice = show_read_menu(to_vector(courseAssignmentsContents), "Assignment contents of this course: ", true, true)-1;
 
-		if (choice < 0)
+		if (choice ==-1)
 			return;
 
 		return course_assignment_subList_from_course(course, courseAssignments[choice]);
@@ -111,20 +119,20 @@ void DoctorView::course_assignment_subList_from_course(Course const& course, Cou
 {
 	while (true)
 	{
-		//const auto& assignments = course.get_assignments();
+		
 		const auto assignments = courseAssingment.get_assignments();
-		//const auto& assignmentss = course.get_assignments(choice);
-		int count = 0;
-		for (const auto& assignment : assignments)
-			std::cout <<++count<<"- "<< assignment.doctor_Overview() << "\n";
+		
+		auto assignmentsDoctoroverviews = assignments |
+			std::views::transform([](const Assignment& ass) {return ass.doctor_Overview(); });
 
-		std::cout << "choose the ith assignment or 0 to cancel";
-		int assignmentChoice = read_int(0, (int)assignments.size()) -1;
-		if (assignmentChoice < 0)
-			return;
+		std::string title{"All Assignments overview fot this assignment: "};
+		int assignmentChoice = show_read_menu(to_vector(assignmentsDoctoroverviews), title, true, true)-1;
+
+		if (assignmentChoice == -1)
+			return; 
+
 		return assignment_sublist(course, assignments[assignmentChoice]);
 
-		//std::cout << assignments[choice - 1].doctor_detailed_view()<<endl;
 	
 	}
 
@@ -169,8 +177,7 @@ void DoctorView:: add_courses()
 	{
 		std::cout << "This code is already taken please chose another course code\n"; std::cin >> courseCode; 
 	}
-	std::string docUsername = users->get_currentuser_username();
-	std::string docName = users->get_currentuser_name();
+	auto [docUsername,docName] = users->get_currentuser_usernameAndName();
 	courses->add_course(courseCode, courseName, docName, docUsername);
 	users->register_in_course(courseCode);
 	std::cout << "You have added a new course ! \n"; 

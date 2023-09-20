@@ -89,8 +89,10 @@ inline int ToInt(const string& str) {
 	return num;
 }
 
-inline int read_int(int low, int high) {
+inline int read_int(int low, int high,bool noChoices=false) {
 	cout << "\nEnter number in range " << low << " - " << high << ": ";
+	if (noChoices)
+		std::cout << "\t or 0 to go back";
 	int value;
 
 	cin >> value;
@@ -102,10 +104,33 @@ inline int read_int(int low, int high) {
 	return read_int(low, high);
 }
 
-inline int show_read_menu(const vector<string_view>& choices, std::string_view defaultTiltel="Menu") {
+[[maybe_unused]]inline int show_read_menu(const vector<string>& choices, std::string_view defaultTiltel="Menu",bool choose=true, bool goBack= false) {
 	cout << "\n"<<defaultTiltel<<":\n";
 	for (int ch = 0; ch < (int)choices.size(); ++ch) {
 		cout << "\t" << ch + 1 << ": " << choices[ch] << "\n";
 	}
-	return read_int(1, (int)choices.size());
+	if (!choose)
+		return INT_MIN;
+
+	if (!goBack)
+		return read_int(1, (int)choices.size(),false);
+
+	return read_int(0, (int)choices.size(), true);
+	
+}
+template <std::ranges::range R>
+inline auto to_vector(R&& r) {
+	std::vector<std::ranges::range_value_t<R>> v;
+
+	// if we can get a size, reserve that much
+	if constexpr (requires { std::ranges::size(r); }) {
+		v.reserve(std::ranges::size(r));
+	}
+
+	// push all the elements
+	for (auto&& e : r) {
+		v.push_back(static_cast<decltype(e)&&>(e));
+	}
+
+	return v;
 }
