@@ -46,8 +46,9 @@ void DoctorView:: view_courses()
 	
 		auto doctorCoursesOverviews = doctorCourses |
 			std::views::transform([](const Course& course) {return course.overview_string(); });
-			
-		int courseChoice= show_read_menu(to_vector(doctorCoursesOverviews), "Your Courses Are: ", true, true) - 1;
+		
+		std::string_view header = "Your Courses are: ", backUp = "You have no Courses";
+		int courseChoice= show_read_menu(to_vector(doctorCoursesOverviews), header,backUp, true, true) - 1;
 		/*int i = 1;
 		for (const auto& course : doctorCourses)
 		{
@@ -63,10 +64,10 @@ void DoctorView:: view_courses()
 		switch (choice2)
 		{
 		case 1:
-			show_assignments(doctorCourses[courseChoice]);
+			add_assignment(doctorCourses[courseChoice]);
 			break;
 		case 2:
-			add_assignment(doctorCourses[courseChoice]);
+			show_assignments(doctorCourses[courseChoice]);
 			break;
 		default:
 			return;
@@ -91,7 +92,8 @@ void DoctorView::show_assignments(Course const & course)
 		std::cout << "Choose the ith Assignment [1-" << courseAssignments.size() << "]\n";
 		std::cout << "or 0 to go back";
 		int choice = read_int(0, (int)courseAssignments.size() - 1) - 1;*/
-		int choice = show_read_menu(to_vector(courseAssignmentsContents), "Assignment contents of this course: ", true, true)-1;
+		std::string_view header = "Assignment contents of this course: ", backUp = "There's no Assignments for this course";
+		int choice = show_read_menu(to_vector(courseAssignmentsContents), header, backUp, true, true)-1;
 
 		if (choice ==-1)
 			return;
@@ -105,10 +107,12 @@ void DoctorView::show_assignments(Course const & course)
 void DoctorView::add_assignment(Course course)
 {
 	assert(users->is_current_user_doctor());
-	std::string assigmentContent; 
+	std::string assigmentContent,dummy; int points;
 	std::cout << "Please enter your new assigment\n";
 	std::getline(std::cin, assigmentContent);
-	std::cout << "What is the total points of this assigment?\n"; int points; cin >> points;
+	std::getline(std::cin, assigmentContent);
+	//std::cin.ignore();
+	std::cout << "What is the total points of this assigment?\n";  cin >> points;
 
 	
 	courses->add_assignment_to_course(course, assigmentContent, points);
@@ -125,8 +129,8 @@ void DoctorView::course_assignment_subList_from_course(Course const& course, Cou
 		auto assignmentsDoctoroverviews = assignments |
 			std::views::transform([](const Assignment& ass) {return ass.doctor_Overview(); });
 
-		std::string title{"All Assignments overview fot this assignment: "};
-		int assignmentChoice = show_read_menu(to_vector(assignmentsDoctoroverviews), title, true, true)-1;
+		std::string_view title{"All Assignments overview fot this assignment: "}, backUp = "No assignments in this course";
+		int assignmentChoice = show_read_menu(to_vector(assignmentsDoctoroverviews), title, backUp, true, true)-1;
 
 		if (assignmentChoice == -1)
 			return; 

@@ -17,7 +17,7 @@ void StudentView::course_choices(Course const& course)
 		{
 		case 1:
 			unregister(course);
-			break;
+			return;
 		case 2:
 			show_assignments_in_course(course);
 			break;
@@ -115,7 +115,8 @@ void StudentView::list_courses()
 	auto coursesOverviews = user_courses
 		| std::views::transform([](const Course& course) {return course.overview_string(); });
 
-	int coursesChoice= show_read_menu(to_vector(coursesOverviews), "Your Courses Are",true,true)-1;
+	std::string_view header = "Your courses are", backUp = "You have no courses yet";
+	int coursesChoice= show_read_menu(to_vector(coursesOverviews),header, backUp,true,true)-1;
 	if (coursesChoice == -1)
 		return; 
 	std::cout << user_courses[coursesChoice].all_info_student_string(users->get_currentuser_username()) << endl;
@@ -177,7 +178,8 @@ void StudentView::view_courses()
 	auto userCourses = courses->getUserCourses(users->get_current_user());
 	auto coursesOverviews = userCourses |
 		std::views::transform([](const Course& course) {return course.overview_string(); });
-	int coursesChoice = show_read_menu(to_vector(coursesOverviews), "Your Courses", true, true);
+	std::string_view backUp = "You have no courses";
+	int coursesChoice = show_read_menu(to_vector(coursesOverviews), "Your Courses",backUp, true, true);
 	/*int i = 0;
 	for (const auto& course : userCourses)
 		std::cout << ++i << " -)" << course.overview_string() << std::endl;

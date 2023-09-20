@@ -73,7 +73,7 @@ void UserManager::Signup() {
 	current_user.read_user(x);
 
 	
-	username_to_user[get_currentuser_username()] = current_user;
+	username_to_user[x] = current_user;
 	//UpdateDataBase(current_user);
 }
 void UserManager::UpdateDataBase(const User& user) {

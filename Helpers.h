@@ -96,7 +96,7 @@ inline int ToInt(const string& str) {
 inline int read_int(int low, int high,bool noChoices=false) {
 	cout << "\nEnter number in range " << low << " - " << high << ": ";
 	if (noChoices)
-		std::cout << "\t or 0 to go back";
+		std::cout << "\t or 0 to go back: ";
 	int value;
 
 	cin >> value;
@@ -108,7 +108,13 @@ inline int read_int(int low, int high,bool noChoices=false) {
 	return read_int(low, high);
 }
 
-[[maybe_unused]]inline int show_read_menu(const vector<string>& choices, std::string_view defaultTiltel="Menu",bool choose=true, bool goBack= false) {
+[[maybe_unused]]inline int show_read_menu(const vector<string>& choices, std::string_view defaultTiltel="Menu",
+	std::string_view ChoicesAreEmpty ="",bool choose = true, bool goBack = false) {
+	if (choices.size() == 0)
+	{
+		std::cout << ChoicesAreEmpty << "\n";
+		return 0;
+	}
 	cout << "\n"<<defaultTiltel<<":\n";
 	for (int ch = 0; ch < (int)choices.size(); ++ch) {
 		cout << "\t" << ch + 1 << ": " << choices[ch] << "\n";
@@ -119,7 +125,7 @@ inline int read_int(int low, int high,bool noChoices=false) {
 	if (!goBack)
 		return read_int(1, (int)choices.size(),false);
 
-	return read_int(0, (int)choices.size(), true);
+	return read_int(1, (int)choices.size(), true);
 	
 }
 template <std::ranges::range R>
