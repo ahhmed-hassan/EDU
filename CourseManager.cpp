@@ -1,8 +1,10 @@
 #include "CourseManager.h"
 void CourseManager::load_database(std::string const& path)
 {
-	nlohmann::json courseManagerJson = parse_json_from_file(path);
-	for (const auto& courseJson : courseManagerJson)
+	std::optional<nlohmann::json> courseManagerJson = parse_json_from_file(path);
+	if (not courseManagerJson.has_value())
+		return; 
+	for (const auto& courseJson : courseManagerJson.value())
 	{
 		Course tmpCourse(courseJson);
 		std::string code(tmpCourse.get_code());
@@ -11,12 +13,12 @@ void CourseManager::load_database(std::string const& path)
 	
 }
 
-CourseManager::CourseManager(nlohmann::json const& courseManagerJson)
+CourseManager::CourseManager(std::optional<nlohmann::json> courseManagerJson)
 {
-	if(not courseManagerJson.empty())
+	if( courseManagerJson.has_value())
 	{
-
-		for (const auto& courseJson : courseManagerJson)
+		auto jsonData = courseManagerJson.value();
+		for (const auto& courseJson : jsonData)
 		{
 			Course tmpCourse(courseJson);
 			std::string code(tmpCourse.get_code());
@@ -56,9 +58,9 @@ void CourseManager::make_enum_based_action_on_course_assignment(Course const& co
 	courses_map[course.get_code()].make_enum_based_action_on_assignment(assignment, action_content, actionType);
 }
 
-void CourseManager::add_course(std::string_view code, std::string_view courseName, std::string_view docName, std::string_view docUsername)
+void CourseManager::add_course(std::string_view code, std::string_view courseName, UsernameAndName const& docUsernameAndName)
 {
-	Course newCourse(code, docUsername, docName, courseName);
+	Course newCourse(code,courseName,docUsernameAndName);
 	courses_map.insert({ (std::string)code, newCourse });
 }
 
@@ -132,7 +134,15 @@ void CourseManager::save_data_to_json(std::string const& path) const
 	std::ofstream output(path); 
 	if (not output.is_open())
 		throw std::runtime_error("Cannot open the file " + path);
-	output<<jsonData.dump(4)<<std::endl;
+	json::error_handler_t::replace;
+	try
+	{
+		output << jsonData.dump(4,' ',false,json::error_handler_t::replace) << std::endl;
+	}
+	catch (const std::exception& e)
+	{
+		cout << e.what()<<endl; 
+	}
 	output.close();
 }
 json  CourseManager::get_json() const

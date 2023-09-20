@@ -24,12 +24,12 @@ private:
 	std::string code{};
 	std::string doctorUsername {};
 	std::string name{};
-	string_view doc_name{};
+	std::string doc_name{};
 	std::vector<UsernameAndName> usernameAndNames{};
 	std::vector<CourseAssignment> courseAssignments{};
 	
 public:
-	Course(std::string_view code, std::string_view docUsername, string_view docName, string_view name);
+	Course(std::string_view code,string_view courseName, UsernameAndName const& docUsernameAndName);
 	Course(json const& jsonCourse);
 	Course() = default;
 	std::string doc_and_assignment_string(std::string_view studentUsername) const;

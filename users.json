@@ -1,10 +1,11 @@
 [
     {
         "coursesCodes": [
-            "Mt"
+            "mm"
         ],
         "isDoctor": true,
         "name": "ahmed",
-        "userName": "Ah"
+        "password": "j",
+        "userName": "ah"
     }
 ]

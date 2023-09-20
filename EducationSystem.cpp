@@ -26,11 +26,13 @@ void EducationSystem::init_view(bool isDoctor)
 void EducationSystem::Run()
 {
 	
-	user_manager->Access_system();
+	while(user_manager->Access_system())
 
-	init_view(user_manager->is_current_user_doctor());
+	{
+		init_view(user_manager->is_current_user_doctor());
 
-	std::visit(var_visitor(), view);
+		std::visit(var_visitor(), view);
+	}
 
 	
 }

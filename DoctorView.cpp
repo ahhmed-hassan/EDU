@@ -178,7 +178,7 @@ void DoctorView:: add_courses()
 		std::cout << "This code is already taken please chose another course code\n"; std::cin >> courseCode; 
 	}
 	auto [docUsername,docName] = users->get_currentuser_usernameAndName();
-	courses->add_course(courseCode, courseName, docName, docUsername);
+	courses->add_course(courseCode, courseName,users->get_currentuser_usernameAndName());
 	users->register_in_course(courseCode);
 	std::cout << "You have added a new course ! \n"; 
 

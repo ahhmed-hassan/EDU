@@ -15,7 +15,7 @@ private:
 	void load_database(std::string const& path = "courses.json");
 public:
 	
-	 CourseManager(json const& courseManagerJson);
+	 CourseManager(std::optional<nlohmann::json> courseManagerJson);
 	 CourseManager(std::string const& path = "courses.json");
 	// CourseManager() = default;
 	 /*inline*/ std::vector<Course> getUserCourses(User const& user) const  ;
@@ -39,7 +39,7 @@ public:
 
 	 void add_course(
 		 std::string_view code, std::string_view courseName,
-		 std::string_view docName, std::string_view docUsername);
+		UsernameAndName const& docUsernameAndName);
 
 	 void remove_assignment_from_course(Course const& course, Assignment const& assignment);
 

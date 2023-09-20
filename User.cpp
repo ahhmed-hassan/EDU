@@ -6,7 +6,8 @@ User::User() = default;
 User::User(json const& jsonUser):
 	is_doctor(jsonUser["isDoctor"]),
 	username(jsonUser["userName"]),
-	name(jsonUser["name"])
+	name(jsonUser["name"]),
+	password(jsonUser["password"])
 	//coursesCodes(jsonUser["courseCodes"])
 {
 	for (const auto& code : jsonUser["coursesCodes"])
@@ -108,5 +109,6 @@ json User::get_json() const
 	res["userName"] = username; 
 	res["name"] = name; 
 	res["coursesCodes"] = coursesCodes;
+	res["password"] = password;
 	return res; 
 }

@@ -5,12 +5,12 @@ UserManager::UserManager(std::string const& jsonPath):UserManager(parse_json_fro
 {
 }
 
-UserManager::UserManager(json const& jsonUsers)
+UserManager::UserManager(std::optional<json> jsonUsers)
 {
-	if (not jsonUsers.empty())
+	if ( jsonUsers.has_value())
 	{
-	
-		for (const auto& jsonUser : jsonUsers)
+		auto jsonUsersData = jsonUsers.value();
+		for (const auto& jsonUser : jsonUsersData)
 		{
 			User tmpUser(jsonUser);
 			auto username = tmpUser.get_username();
@@ -21,8 +21,11 @@ UserManager::UserManager(json const& jsonUsers)
 }
 void UserManager::load_database(std::string const& jsonPath)
 {
-	nlohmann::json usersJson(parse_json_from_file(jsonPath));
-	for (const auto& jsonUser : usersJson)
+	auto usersJson(parse_json_from_file(jsonPath));
+	if (not usersJson.has_value())
+		return; 
+	auto usersJsonData = usersJson.value();
+	for (const auto& jsonUser : usersJsonData)
 	{
 		User tmpUser(jsonUser);
 		auto username = tmpUser.get_username();
@@ -30,17 +33,17 @@ void UserManager::load_database(std::string const& jsonPath)
 	}
 }
 
-void UserManager::Access_system() {
+bool UserManager::Access_system() {
 	int choice = show_read_menu({ "Log In", "Sign up" ,"Shut Down"});
 	switch (choice) {
 	case 1:
-	{Login(); break; }
+	{Login(); return true; ; }
 	case 2:
-	{Signup(); break; }
+	{Signup(); return true; }
 	case 3: 
-	{ break; }
+	{ return false; }
 	default:
-		break;
+		return false;
 	}
 
 }
@@ -113,7 +116,7 @@ std::string UserManager::get_currentuser_name() const
 
 UsernameAndName UserManager::get_currentuser_usernameAndName() const
 {
-	return UsernameAndName(get_currentuser_name(), get_currentuser_username());
+	return UsernameAndName(get_currentuser_username(), get_currentuser_name());
 }
 
 json UserManager::get_json() const

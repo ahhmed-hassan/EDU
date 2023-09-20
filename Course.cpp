@@ -2,8 +2,8 @@
 #include <assert.h>
 
 
-Course::Course(std::string_view code, std::string_view docUsername, string_view docName, string_view name):
-code(code),doctorUsername(docUsername),doc_name(docName),name(name)
+Course::Course(std::string_view code, string_view courseName, UsernameAndName const& docUsernameAndName) :
+code(code),doctorUsername(docUsernameAndName.username),doc_name(docUsernameAndName.name),name(courseName)
 {
 }
 

@@ -69,12 +69,13 @@ void StudentView::show_assignments_in_course(Course const& course)
 
 void StudentView::Display()
 {
-	int choice = show_read_menu(
-		{ "Register In Course", "List My Courses", "View Course","Grades Report",
-		"Log Out" }
-	);
+	
 	while (true)
 	{
+		int choice = show_read_menu(
+			{ "Register In Course", "List My Courses", "View Course","Grades Report",
+			"Log Out" }
+		);
 		switch (choice)
 		{
 		case 1:
@@ -118,6 +119,8 @@ void StudentView::list_courses()
 	if (coursesChoice == -1)
 		return; 
 	std::cout << user_courses[coursesChoice].all_info_student_string(users->get_currentuser_username()) << endl;
+	return course_choices(user_courses[coursesChoice]);
+	return list_courses(); 
 		
 	/*std::cout << endl; 
 	return sublist_courses();*/
@@ -128,9 +131,9 @@ void StudentView::register_in_course()
 {
 	std::cout << "Please Enter the code of the course in which you want to register\n"; std::string code{}; cin >> code;
 	auto courseOverview = courses->get_course_overview(code);
-	if (not courseOverview.has_value())
+	while (not courses->get_course_overview(code).has_value())
 	{
-		std::cout << "There is no course with this code\n"; return register_in_course();
+		std::cout << "There is no course with this code please try again\n"; std::cin >> code; 
 	}
 	std::cout << "Your chosen course\n" << courseOverview.value() << "\n"; 
 
@@ -154,6 +157,7 @@ void StudentView::sublist_courses()
 	int choice = read_int(1, (int)userCourses.size() );
 	std::string courseDetailedString{};
 	std::cout << userCourses[choice - 1].all_info_student_string(users->get_currentuser_username()) << endl;
+
 
 
 }

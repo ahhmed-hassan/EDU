@@ -19,8 +19,9 @@ private:
 	
 public:
 	UserManager(std::string const& jsonPath="users.json");
-	UserManager(json const& jsonUsers);
-	void Access_system();
+	UserManager(std::optional<json> jsonUsers);
+	//return true if the user has logged in or signed up. 
+	bool Access_system();
 	void Login(); 
 	void Signup();
 	void load_database(std::string const& jsonPath="users.json");

@@ -4,15 +4,18 @@
 #include<iostream>
 #include<vector>
 #include <string_view>
+#include <type_traits>
 #include "nlohman/json.hpp"
 using namespace std; 
 
-inline nlohmann::json parse_json_from_file(std::string const& path)
+inline std::optional<nlohmann::json> parse_json_from_file(std::string const& path)
 {
-	json res{};
+	std::optional<nlohmann::json> res{};
 	std::ifstream input(path); 
 	if (not input)
 		throw std::runtime_error("Cannot open the file : " + path);
+	if (std::filesystem::is_empty(path))
+		return res; 
 	try
 	{
 		 res=nlohmann::json::parse(input);
@@ -21,6 +24,7 @@ inline nlohmann::json parse_json_from_file(std::string const& path)
 	{
 
 	}	
+	
 	input.close();
 	return res; 
 }
