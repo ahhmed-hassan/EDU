@@ -1,7 +1,8 @@
 [
     {
         "coursesCodes": [
-            "M"
+            "M",
+            "P"
         ],
         "isDoctor": false,
         "name": "ahmed",
@@ -10,7 +11,8 @@
     },
     {
         "coursesCodes": [
-            "M"
+            "M",
+            "P"
         ],
         "isDoctor": true,
         "name": "ahmed",

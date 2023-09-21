@@ -46,6 +46,12 @@ std::vector<std::string> CourseManager::get_user_courses_overview(const User& us
 	auto overviews = userCourses | views::transform([](const Course& course) {return course.overview_string(); });
 	return std::vector<std::string>{overviews.begin(), overviews.end()};
 }
+std::vector<std::string> CourseManager::get_all_courses_overview() const
+{
+	auto overviewsRange = courses_map | std::views::values |
+		std::views::transform([](const Course& course) {return course.overview_string(); });
+	return std::vector<std::string>(overviewsRange.begin(), overviewsRange.end());
+}
 //void CourseManager::remove_assignemnt_from_course(Assignment const& assignment)
 //{
 //	courses_map[assignment.get_courseId()].remove_assignment(assignment);

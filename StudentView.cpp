@@ -1,4 +1,5 @@
 #include "StudentView.h"
+const std::string dummy = "dummy";
 StudentView::StudentView(CourseManagerPtr cManger, UserManagerPtr uManger):
 	courses(std::move(cManger)), users(std::move(uManger)){}
 
@@ -64,7 +65,7 @@ void StudentView::show_assignments_in_course(Course const& course)
 		auto assignmentsAllInfoStrings = studentAssignments |
 			std::views::transform([](const Assignment& ass) {return ass.all_info_student_string(); });
 		std::string_view header = "Your Assignments report", fallback = "You have no assignments";
-		int assignmentChoice = show_read_menu(to_vector(assignmentsAllInfoStrings), header, fallback, true, true);
+		int assignmentChoice = show_read_menu(to_vector(assignmentsAllInfoStrings), header, fallback, true, true)-1;
 		if (assignmentChoice == -1)
 			return;
 
@@ -137,9 +138,18 @@ void StudentView::register_in_course()
 {
 	std::cout << "Please Enter the code of the course in which you want to register\n"; std::string code{}; cin >> code;
 	auto courseOverview = courses->get_course_overview(code);
-	while (not courseOverview.has_value())
+	while (not courseOverview.has_value() or users->get_current_user().is_enrolled_at_course(code))
 	{
-		std::cout << "There is no course with this code please try again\n"; std::cin >> code; 
+		if (not courseOverview.has_value())
+			std::cout << "There is no course with this code please try again ";
+
+		else
+			std::cout << "you are already enrolled at this course please try again ";
+					
+		std::cout << "or enter "+ dummy+ " to cancel\n";
+		std::cin >> code;
+		if (code == dummy)
+			return;
 		courseOverview = courses->get_course_overview(code);
 	}
 	std::cout << "Your chosen course\n" << courseOverview.value() << "\n"; 
@@ -179,6 +189,8 @@ void StudentView::unregister(Course const& course)
 
 void StudentView::view_courses()
 {
+	std::string_view header = "System Courses", fallBack = "No Courses yet";
+	show_read_menu(courses->get_all_courses_overview(), header, fallBack, false, false);
 	//std::cout<<"Choose the ith [1"<<
 	return;
 	auto userCourses = courses->getUserCourses(users->get_current_user());

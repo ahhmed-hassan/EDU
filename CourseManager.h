@@ -22,7 +22,7 @@ public:
 	 void SubmitSolution(int, std::string_view);
 	 void remove_student(const Course& course, std::string const&  studentUsername);
 	 std::vector<std::string>  get_user_courses_overview(const User& user) const;
-
+	std::vector<std::string> get_all_courses_overview() const; 
 	// void remove_assignemnt_from_course(Assignment const& assignment);
 
 

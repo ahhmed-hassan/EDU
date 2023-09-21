@@ -35,7 +35,12 @@ void DoctorView:: log_out()
 	users->save_data_to_json();
 	courses->save_data_to_json();
 }
-void DoctorView:: list_courses(){}
+void DoctorView:: list_courses()
+{
+	std::string_view header = "System Courses", fallBack = "No Courses yet";
+	show_read_menu(courses->get_all_courses_overview(), header, fallBack, false, false);
+}
+
 void DoctorView:: view_courses()
 {
 	
@@ -147,6 +152,7 @@ void DoctorView::assignment_sublist(Course const& course, Assignment const& assi
 {
 	while (true)
 	{
+		std::cout << assignment.doctor_detailed_view() << "\n";
 		int assignmentMenuChoice = show_read_menu({ "Add Feedback","Add Degree","Return" });
 		std::string actionContent;
 

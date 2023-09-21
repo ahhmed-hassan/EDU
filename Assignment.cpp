@@ -34,7 +34,7 @@ std::string Assignment::student_string() const
 	//res << "Assignment " << assignment_number;
 	if (!submitted)
 		res << " NOT" ;
-	res << " Submitted--";
+	res << " Submitted-- ";
 
 	if (grade.has_value())
 		res << "NA";
@@ -52,7 +52,10 @@ std::string Assignment::doctor_Overview() const
 	res << "Student : " << studentName << " has ";
 	if (not submitted)
 		res << "not ";
-	res << "submitted";
+	res << "submitted ";
+
+	/*if (submitted)
+		res << "Solution is: " << solution<<"\n";*/
 	res << "and has the grade ";
 
 	if (grade.has_value())

@@ -28,5 +28,35 @@
                 "username": "aa"
             }
         ]
+    },
+    {
+        "code": "P",
+        "courseAssignments": [
+            {
+                "Assignments": [
+                    {
+                        "content": "What is your fav programming Language? ",
+                        "feedback": "",
+                        "grade": 10.0,
+                        "isSubmitted": true,
+                        "solution": "C++",
+                        "studentName": "ahmed",
+                        "studentUsername": "aa",
+                        "total": 10
+                    }
+                ],
+                "content": "What is your fav programming Language? ",
+                "totalPoints": 10
+            }
+        ],
+        "courseName": "Prog",
+        "docName": "ahmed",
+        "docUsername": "ah",
+        "usernameAndNames": [
+            {
+                "name": "ahmed",
+                "username": "aa"
+            }
+        ]
     }
 ]
