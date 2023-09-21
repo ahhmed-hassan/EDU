@@ -100,6 +100,8 @@ inline int read_int(int low, int high,bool noChoices=false) {
 	int value;
 
 	cin >> value;
+	if (noChoices and value == 0)
+		return value;
 
 	if (low <= value && value <= high)
 		return value;

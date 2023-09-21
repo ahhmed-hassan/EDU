@@ -69,11 +69,12 @@ void UserManager::Signup() {
 		cout << "Already taken, Please try another username\n";
 		cout << "Enter a username\n"; cin >> x;
 	}
-
-	current_user.read_user(x);
+	User newUser{};
+	newUser.read_user(x);
 
 	
-	username_to_user[x] = current_user;
+	username_to_user[x] = newUser;
+	current_user = newUser;
 	//UpdateDataBase(current_user);
 }
 void UserManager::UpdateDataBase(const User& user) {

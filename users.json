@@ -1,8 +1,13 @@
 [
     {
-        "coursesCodes": [
-            "M"
-        ],
+        "coursesCodes": [],
+        "isDoctor": false,
+        "name": "ahmed",
+        "password": "J",
+        "userName": "aa"
+    },
+    {
+        "coursesCodes": [],
         "isDoctor": true,
         "name": "ahmed",
         "password": "J",
