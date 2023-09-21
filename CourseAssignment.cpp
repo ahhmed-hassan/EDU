@@ -27,8 +27,7 @@ CourseAssignment::CourseAssignment(json const& jsonCourseAssignment) :
 
 void CourseAssignment::add_student_entry(UsernameAndName const& usernameAndName)
 {
-	//if (assignments.empty())
-	//	return;
+
 	assignments.emplace_back(content, totalPoints, usernameAndName);
 }
 
@@ -52,8 +51,6 @@ std::vector<std::string> CourseAssignment::get_doctor_overview() const
 
 Assignment CourseAssignment::get_student_assigment(std::string_view studentUsername) const
 {
-	/*auto studentAssignments = assignments |
-		std::views::filter([&](const Assignment& ass) {return ass.get_student_username() == studentUsername; });*/
 	auto assignnmentIterator = std::ranges::find_if(assignments, [&](const Assignment& ass) {return ass.get_student_username() == studentUsername; });
 	assert(assignnmentIterator != assignments.end());
 	return *assignnmentIterator;

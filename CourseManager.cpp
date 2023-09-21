@@ -32,17 +32,14 @@ CourseManager::CourseManager(std::string const& path):CourseManager(parse_json_f
 	
 }
 
-void CourseManager::SubmitSolution(int course_id, std::string_view solution)
-{
-	
-}
+
 void CourseManager::remove_student(const Course& course, std::string const& studentUsername)
 {
 	courses_map[course.get_code()].remove_student(studentUsername);
 }
 std::vector<std::string> CourseManager::get_user_courses_overview(const User& user) const
 {
-	auto const userCourses = getUserCourses(user);
+	auto const userCourses = get_user_courses(user);
 	auto overviews = userCourses | views::transform([](const Course& course) {return course.overview_string(); });
 	return std::vector<std::string>{overviews.begin(), overviews.end()};
 }
@@ -52,10 +49,7 @@ std::vector<std::string> CourseManager::get_all_courses_overview() const
 		std::views::transform([](const Course& course) {return course.overview_string(); });
 	return std::vector<std::string>(overviewsRange.begin(), overviewsRange.end());
 }
-//void CourseManager::remove_assignemnt_from_course(Assignment const& assignment)
-//{
-//	courses_map[assignment.get_courseId()].remove_assignment(assignment);
-//}
+
 
 
 
@@ -70,14 +64,11 @@ void CourseManager::add_course(std::string_view code, std::string_view courseNam
 	courses_map.insert({ (std::string)code, newCourse });
 }
 
-//void CourseManager::remove_assignment_from_course( Course const& course, Assignment const& assignment)
-//{
-//	courses_map[course.get_code()].remove_assignment(assignment);
-//}
+
 
 void CourseManager::add_new_student_usernameAndName_to_course(std::string_view courseCode,UsernameAndName const& studentUsernameAndName)
 {
-	//courses_map[(std::string)courseCode].add_empty_assignment_for_new_student(studentUsernameAndName);
+	
 	courses_map[(std::string)courseCode].add_new_student_ussername_and_name(studentUsernameAndName);
 }
 
@@ -95,17 +86,11 @@ void CourseManager::add_assignment_to_course
 	Course const& course, 
 	std::string_view content,
 	const int total_points
-	/*std::string_view doc_name,*/
-	/*std::vector<std::string> const& studentnamesAtThisCourse*/
 )
 {
 	auto course_id = course.get_code();
 
-	/*for (auto const& name : studentnamesAtThisCourse)
-	{
-		auto assignmentForThisStudent = Assignment(content, total_points, name);
-		courses_map[course_id].addAssigment(std::move(assignmentForThisStudent));
-	}*/
+
 	courses_map[course_id].add_courseAssignment(content, total_points);
 	
 }
@@ -113,7 +98,7 @@ std::pair<double, int> CourseManager::get_relative_grade_report_for_student(cons
 {
 	assert(not student.isDoctor());
 	double scored{}; int total{};
-	auto studentCourses = getUserCourses(student);
+	auto studentCourses = get_user_courses(student);
 	for (const auto& course : studentCourses)
 	{
 		auto userAssignments=course.get_user_assignments(student.get_username());
@@ -132,7 +117,7 @@ bool CourseManager::is_course_code_available(std::string_view courseCode) const
 {
 	std::string code = static_cast<std::string>(courseCode);
 	return courses_map.find(code) == courses_map.end();
-	//return std::find(courses_map.cbegin(), courses_map.cend(), code) != courses_map.cend();
+	
 }
 void CourseManager::save_data_to_json(std::string const& path) const
 {
@@ -160,11 +145,8 @@ json  CourseManager::get_json() const
 	}
 	return res; 
 }
-//void CourseManager::RemoveStudent(int student_id, int course_id)
-//{
-//	courses_map[course_id]->RemoveStudent(student_id);
-//}
- std::vector<Course> CourseManager::getUserCourses(User const& user) const
+
+ std::vector<Course> CourseManager::get_user_courses(User const& user) const
 {
 	std::vector<Course > res{};
 	//static_assert(typeid(courses_map[1].name()=="Course *"))

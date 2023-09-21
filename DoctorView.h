@@ -13,7 +13,7 @@ private:
 	
 public:
 	DoctorView(const DoctorView&)=default ; 
-	//void operator=(const DoctorView&)=default;
+
 	DoctorView(DoctorView&&) = default;
 	DoctorView( CourseManagerPtr cManger,  UserManagerPtr uManger);
 	void Display(); 

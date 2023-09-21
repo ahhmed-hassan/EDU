@@ -30,8 +30,7 @@ bool Assignment::operator==(const Assignment& another) const
 std::string Assignment::student_string() const
 {
 	std::ostringstream res{};
-	
-	//res << "Assignment " << assignment_number;
+
 	if (!submitted)
 		res << " NOT" ;
 	res << " Submitted-- ";
@@ -54,9 +53,6 @@ std::string Assignment::doctor_Overview() const
 		res << "not ";
 	res << "submitted ";
 
-	/*if (submitted)
-		res << "Solution is: " << solution<<"\n";*/
-	//res << "and has the grade ";
 
 	if (grade.has_value())
 		res << "and has the grade "<<grade.value()<<" out of "<<total;
@@ -199,7 +195,7 @@ std::string Assignment::all_info_student_string() const
 		res << "Not Graded yet";
 	else
 		res << "degree is: "<< grade.value() << "/" << total << "\n";
-	//res << "/" << total<<"\n";
+	
 	
 	return (res.str());
 }

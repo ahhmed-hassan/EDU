@@ -47,7 +47,7 @@ void DoctorView:: view_courses()
 	while(true)
 	{
 		//should it be put here or before the while loop?
-		auto const& doctorCourses = courses->getUserCourses(users->get_current_user());
+		auto const& doctorCourses = courses->get_user_courses(users->get_current_user());
 	
 		auto doctorCoursesOverviews = doctorCourses |
 			std::views::transform([](const Course& course) {return course.overview_string(); });
@@ -85,18 +85,11 @@ void DoctorView::show_assignments(Course const & course)
 {
 	while(true)
 	{
-	//	const auto& assignments = course.get_assignments();
+	
 		auto courseAssignments = course.get_course_assignments();
 		auto courseAssignmentsContents = courseAssignments | 
 			std::views::transform([](const CourseAssignment& ass) {return ass.get_content(); });
-		//auto assignmentContents = course.get_assignments_contents();
-	/*	int j = 0; 
-		for (const auto& courseAssignment : courseAssignments)
-			std::cout << ++j << "- Assignment has content: " << courseAssignment.get_content() << "\n";
-	
-		std::cout << "Choose the ith Assignment [1-" << courseAssignments.size() << "]\n";
-		std::cout << "or 0 to go back";
-		int choice = read_int(0, (int)courseAssignments.size() - 1) - 1;*/
+
 		std::string_view header = "Assignment contents of this course: ", backUp = "There's no Assignments for this course";
 		int choice = show_read_menu(to_vector(courseAssignmentsContents), header, backUp, true, true)-1;
 
@@ -116,7 +109,6 @@ void DoctorView::add_assignment(Course course)
 	std::cout << "Please enter your new assigment\n";
 	std::getline(std::cin, assigmentContent);
 	std::getline(std::cin, assigmentContent);
-	//std::cin.ignore();
 	std::cout << "What is the total points of this assigment?\n";  cin >> points;
 
 	
@@ -181,7 +173,7 @@ void DoctorView::assignment_sublist(Course const& course, Assignment const& assi
 		default:
 			return;
 		}
-		//courses->make_enum_based_action_on_course_assignment(course, assignment, actionContent, AssignmentAction::addFeedback);
+		
 
 	}
 }

@@ -133,12 +133,9 @@
     <ClCompile Include="Course.cpp" />
     <ClCompile Include="CourseAssignment.cpp" />
     <ClCompile Include="CourseManager.cpp" />
-    <ClCompile Include="Doctor.cpp" />
     <ClCompile Include="DoctorView.cpp" />
     <ClCompile Include="EducationSystem.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="Student.cpp" />
-    <ClCompile Include="StudentManager.cpp" />
     <ClCompile Include="StudentView.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserManager.cpp" />
@@ -148,14 +145,11 @@
     <ClInclude Include="Course.h" />
     <ClInclude Include="CourseAssignment.h" />
     <ClInclude Include="CourseManager.h" />
-    <ClInclude Include="Doctor.h" />
     <ClInclude Include="DoctorView.h" />
     <ClInclude Include="EducationSystem.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="nlohman\json.hpp" />
     <ClInclude Include="nlohman\json_fwd.hpp" />
-    <ClInclude Include="Student.h" />
-    <ClInclude Include="StudentManager.h" />
     <ClInclude Include="StudentView.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserManager.h" />

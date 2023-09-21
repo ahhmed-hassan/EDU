@@ -7,7 +7,7 @@ using json = nlohmann::json;
 class User
 {
 protected:
-	//int id{};
+	
 	bool is_doctor{};
 	std::string username{};
 	std::string password{};
@@ -23,7 +23,7 @@ public:
 
 	void set_name(std::string_view x);
 
-	//void set_id(int);
+	
 	void set_doctor();
 
 	std::string const& get_username()const;
@@ -50,6 +50,6 @@ public:
 
 	json get_json() const;
 
-	//int getId() const;
+	
 };
 

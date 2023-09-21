@@ -32,10 +32,8 @@ std::string Course::doc_and_assignment_string(std::string_view studentUsername) 
 		" taught by Doctor " << doc_name << " has " <<
 		courseAssignments.size()  << " Assignments:\n";
 
-	int i{ 1 };
 
-	//for (const auto& assignment : get_user_assignments(studentUsername))
-	//	res << "Assignment " << i++ <<" "<< assignment.StudentString() << '\n';
+
 
 	return std::move(res.str());
 }
@@ -72,10 +70,6 @@ std::vector<CourseAssignment> const& Course::get_course_assignments() const
 	return courseAssignments;
 }
 
-//int Course::GetId() const
-//{
-//	return id;
-//}
 
 std::string const Course::get_code() const
 {
@@ -93,17 +87,12 @@ std::string Course::all_info_student_string(std::string_view studentUsername) co
 	return res.str();
 }
 
-void Course::add_courseAssignment(std::string_view content, const int totalPoints)//, std::vector<std::string> studentnamesAtThisCourse)
+void Course::add_courseAssignment(std::string_view content, const int totalPoints)
 {
 	courseAssignments.emplace_back(CourseAssignment(content, totalPoints, usernameAndNames));
 }
 
-//void Course::addAssigment( Assignment&& assign)
-//{
-//	assignments.push_back(assign);
-//	//Every assignment has it's position in the vector as an ID. 
-//	assignments.back().set_id((int)assignments.size() - 1);
-//}
+
 
 void Course::add_new_student_ussername_and_name(UsernameAndName const& usernameAndName)
 {
@@ -211,14 +200,6 @@ bool Course::operator==(const Course& another) const
 	return code == another.code;
 }
 
-//void Course::remove_assignment(const Assignment& assignment)
-//{
-//	auto const assignmentIterator=std::find(assignments.begin(), assignments.end(), assignment);
-//	//auto assPos = assignmentIterator - assignments.begin();
-//	//auto it = assignmentIterator + assignments.begin();
-//	assignments.erase(assignmentIterator);
-//
-//}
 
 
 

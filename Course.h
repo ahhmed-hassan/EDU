@@ -20,6 +20,58 @@ using std::string_view;
 
 class Course
 {
+
+	
+public:
+	Course(std::string_view code,string_view courseName, UsernameAndName const& docUsernameAndName);
+	Course(json const& jsonCourse);
+	Course() = default;
+
+	//getters
+	std::vector <std::string> get_assignments_contents() const;
+
+	size_t get_courseAssignments_number() const;
+
+	std::vector<Assignment> const& get_assignments(const int courseAssignmentPos) const;
+
+	std::vector<CourseAssignment> const& get_course_assignments()const;
+
+	std::string const get_code() const;
+
+	std::vector<Assignment> get_user_assignments(std::string_view studentUsername) const; 
+
+	json get_json() const; 
+
+	int get_total_points_of_courseAssignments() const;
+
+	double get_scored_points_by_student(std::string_view studentUsername) const;
+
+	size_t get_number_of_student_submitted_assignments(std::string_view studentUsername) const;
+
+	std::string get_grade_report_string(std::string_view studentUsername) const; 
+
+	//operators
+	bool operator==(const Course& another) const; 
+
+	//strings
+	std::string overview_string() const;
+	std::string all_info_student_string(std::string_view studentName) const;
+	std::string doc_and_assignment_string(std::string_view studentUsername) const;
+	
+
+	//adding, removing and modification
+	void make_enum_based_action_on_assignment(
+		const Assignment& assignment,
+		std::string_view actionContent,
+		AssignmentAction const& actionType);
+
+	void add_courseAssignment(std::string_view content, const int totalPoints);
+
+	void add_new_student_ussername_and_name(UsernameAndName const& usernameAndName);
+	
+	void remove_student(std::string const& studentUsername);
+	
+
 private:
 	std::string code{};
 	std::string doctorUsername {};
@@ -27,46 +79,6 @@ private:
 	std::string doc_name{};
 	std::vector<UsernameAndName> usernameAndNames{};
 	std::vector<CourseAssignment> courseAssignments{};
-	
-public:
-	Course(std::string_view code,string_view courseName, UsernameAndName const& docUsernameAndName);
-	Course(json const& jsonCourse);
-	Course() = default;
-	std::string doc_and_assignment_string(std::string_view studentUsername) const;
-	std::string overview_string() const;
-
-	std::vector <std::string> get_assignments_contents() const;
-	size_t get_courseAssignments_number() const;
-	std::vector<Assignment> const& get_assignments(const int courseAssignmentPos) const;
-	std::vector<CourseAssignment> const& get_course_assignments()const;
-	std::string const get_code() const;
-
-	std::string all_info_student_string(std::string_view studentName) const;
-	void add_courseAssignment(std::string_view content, const int totalPoints);// , std::vector<std::string> stuedntnamesAtThisCourse);
-
-	void add_new_student_ussername_and_name(UsernameAndName const& usernameAndName);
-	//void add_empty_assignment_for_new_student(std::string_view studentName);
-
-	std::vector<Assignment> get_user_assignments(std::string_view studentUsername) const; 
-	json get_json() const; 
-	int get_total_points_of_courseAssignments() const;
-	double get_scored_points_by_student(std::string_view studentUsername) const;
-	size_t get_number_of_student_submitted_assignments(std::string_view studentUsername) const;
-	std::string get_grade_report_string(std::string_view studentUsername) const; 
-
-	
-	void make_enum_based_action_on_assignment(
-		
-		const Assignment& assignment,
-		std::string_view actionContent,
-		AssignmentAction const& actionType);
-
-
-	//void remove_assignment(const Assignment& assignemnt);
-
-	void remove_student(std::string const& studentUsername);
-	//void SetSolution();
-	bool operator==(const Course& another) const; 
 
 };
 

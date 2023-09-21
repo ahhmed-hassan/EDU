@@ -51,12 +51,6 @@
     <ClCompile Include="User.cpp">
       <Filter>Source Files\Users</Filter>
     </ClCompile>
-    <ClCompile Include="Doctor.cpp">
-      <Filter>Source Files\Users</Filter>
-    </ClCompile>
-    <ClCompile Include="Student.cpp">
-      <Filter>Source Files\Users</Filter>
-    </ClCompile>
     <ClCompile Include="StudentView.cpp">
       <Filter>Source Files\Views</Filter>
     </ClCompile>
@@ -67,9 +61,6 @@
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="CourseManager.cpp">
-      <Filter>Source Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="StudentManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="CourseAssignment.cpp">
@@ -95,20 +86,11 @@
     <ClInclude Include="User.h">
       <Filter>Header Files\Users</Filter>
     </ClInclude>
-    <ClInclude Include="Student.h">
-      <Filter>Header Files\Users</Filter>
-    </ClInclude>
-    <ClInclude Include="Doctor.h">
-      <Filter>Header Files\Users</Filter>
-    </ClInclude>
     <ClInclude Include="StudentView.h">
       <Filter>Header Files\Views</Filter>
     </ClInclude>
     <ClInclude Include="DoctorView.h">
       <Filter>Header Files\Views</Filter>
-    </ClInclude>
-    <ClInclude Include="StudentManager.h">
-      <Filter>Header Files\Managers</Filter>
     </ClInclude>
     <ClInclude Include="CourseAssignment.h">
       <Filter>Header Files</Filter>

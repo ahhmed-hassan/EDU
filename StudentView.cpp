@@ -38,7 +38,7 @@ void StudentView::assignment_subList(const Course& course,const Assignment& assi
 	}
 	while(true)
 	{
-		//std::cout << "Enter 1 to add a solution or 0 to go back\n";
+		
 		int choice = show_read_menu({"add a solution", "go back"});
 		if (choice==2)
 			return;
@@ -60,10 +60,7 @@ void StudentView::show_assignments_in_course(Course const& course)
 	int i{ 1 };
 	while (true)
 	{
-		/*for (const auto ass : studentAssignments)
-			std::cout << ass.all_info_student_string() << "\n";
-		std::cout << "choose the ith assignments or 0 to cancel";
-		int assignmentChoice = read_int(0, (int)studentAssignments.size()) - 1;*/
+		
 		auto assignmentsAllInfoStrings = studentAssignments |
 			std::views::transform([](const Assignment& ass) {return ass.all_info_student_string(); });
 		std::string_view header = "Your Assignments report", fallback = "You have no assignments";
@@ -108,7 +105,7 @@ void StudentView::Display()
 void StudentView::grades_report()
 {
 	
-	auto studentCourses = courses->getUserCourses(users->get_current_user());
+	auto studentCourses = courses->get_user_courses(users->get_current_user());
 	for (const auto& course : studentCourses)
 	{
 		std::cout << course.get_grade_report_string(users->get_currentuser_username())<<"\n";
@@ -119,7 +116,7 @@ void StudentView::grades_report()
 
 void StudentView::list_courses()
 {
-	std::vector<Course> const& user_courses= courses->getUserCourses(users->get_current_user()) ;
+	std::vector<Course> const& user_courses= courses->get_user_courses(users->get_current_user()) ;
 	auto coursesOverviews = user_courses
 		| std::views::transform([](const Course& course) {return course.overview_string(); });
 
@@ -128,14 +125,10 @@ void StudentView::list_courses()
 	if (coursesChoice == -1)
 		return; 
 	std::cout << user_courses[coursesChoice].doc_and_assignment_string(users->get_currentuser_username()) ;
-	//auto contents = user_courses[coursesChoice].get_assignments_contents();
-	//show_read_menu(contents, "Contents");
-	return course_choices(user_courses[coursesChoice]);
+
+	 course_choices(user_courses[coursesChoice]);
 	return list_courses(); 
 		
-	/*std::cout << endl; 
-	return sublist_courses();*/
-
 }
 
 void StudentView::register_in_course()
@@ -170,18 +163,7 @@ void StudentView::log_out()
 	courses->save_data_to_json();
 }
 
-void StudentView::sublist_courses()
-{
-	auto userCourses = courses->getUserCourses(users->get_current_user());
 
-	std::cout << "Choose the ith  [1" << userCourses.size()  << "] Course to view\n";
-	int choice = read_int(1, (int)userCourses.size() );
-	std::string courseDetailedString{};
-	std::cout << userCourses[choice - 1].all_info_student_string(users->get_currentuser_username()) << endl;
-
-
-
-}
 
 void StudentView::unregister(Course const& course)
 {
@@ -197,28 +179,6 @@ void StudentView::view_courses()
 	show_read_menu(courses->get_all_courses_overview(), header, fallBack, false, false);
 	//std::cout<<"Choose the ith [1"<<
 	return;
-	auto userCourses = courses->getUserCourses(users->get_current_user());
-	auto coursesOverviews = userCourses |
-		std::views::transform([](const Course& course) {return course.overview_string(); });
-	std::string_view backUp = "You have no courses";
-	int coursesChoice = show_read_menu(to_vector(coursesOverviews), "Your Courses",backUp, true, true);
-	/*int i = 0;
-	for (const auto& course : userCourses)
-		std::cout << ++i << " -)" << course.overview_string() << std::endl;
-	std::cout << "choose the ith course or 0 to cancel\n";
-	int courseChoice = read_int(0, (int)userCourses.size())-1;*/
 
-	if (coursesChoice  ==-1)
-		return; 
-	std::cout << userCourses[coursesChoice].doc_and_assignment_string(users->get_currentuser_username());
-	std::cout << "Choose the ith Assignment or 0 to cancel\n";
 
-	int assignmentChoice = read_int(0, (int)userCourses[coursesChoice].get_courseAssignments_number())-1;
-	if (assignmentChoice < 0)
-		return;
-
-	auto userAssignments = userCourses[coursesChoice].get_user_assignments(users->get_currentuser_username());
-	auto chosenAssignment = userAssignments[assignmentChoice];
-
-	//users->
 }

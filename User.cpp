@@ -8,7 +8,7 @@ User::User(json const& jsonUser):
 	username(jsonUser["userName"]),
 	name(jsonUser["name"]),
 	password(jsonUser["password"])
-	//coursesCodes(jsonUser["courseCodes"])
+	
 {
 	for (const auto& code : jsonUser["coursesCodes"])
 		coursesCodes.push_back(code);
@@ -33,8 +33,8 @@ std::string const& User::get_username()const {
 	return username;
 }
 
-void User::read_user(std::string_view str/*, int id*/) {
-	set_username(std::string(str));// set_id(id);
+void User::read_user(std::string_view str) {
+	set_username(std::string(str));
 	std::string x;
 	std::cout << "Enter a name: "; std::cin >> x; name = x;
 	std::cout << "\nEnter a password: "; std::cin >> x; password = x;
@@ -45,7 +45,6 @@ void User::read_user(std::string_view str/*, int id*/) {
 
 std::string User::to_string()const {
 	std::ostringstream oss{};
-	//oss << id << "," << username << "," << name << "," << password<<","<<is_doctor;
 	oss << username << "," << name << "," << password << "," << is_doctor;
 	return oss.str();
 }
@@ -58,18 +57,7 @@ bool User::operator==(const User& user) {
 	return user.username == username;
 	}
 
-//void User::Unregister(int course_id)
-//{
-//	assert(not this->is_doctor,"Only Students can unregister");
-//	auto it=std::ranges::find(courses_id, course_id);
-//	assert(it != courses_id.end(), "invalid Id");
-//	int pos = it - courses_id.begin();
-//	courses_id.erase(it);
-//}
-//int User::getId() const
-//{
-//	return id;
-//}
+
 const bool User:: isDoctor() const
 {
 	return is_doctor;
