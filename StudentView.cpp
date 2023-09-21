@@ -30,13 +30,15 @@ void StudentView::course_choices(Course const& course)
 
 void StudentView::assignment_subList(const Course& course,const Assignment& assignment)
 {
+	if(not assignment.get_solution().empty())
+		std::cout << "your current solution: " << assignment.get_solution();
 	if (assignment.is_graded())
 	{
 		std::cout << "You cannot set a solution for a graded Assignment try another one\n"; return;
 	}
 	while(true)
 	{
-		std::cout << "Enter 1 to add a solution or 0 to go back\n";
+		//std::cout << "Enter 1 to add a solution or 0 to go back\n";
 		int choice = show_read_menu({"add a solution", "go back"});
 		if (choice==2)
 			return;
@@ -125,7 +127,9 @@ void StudentView::list_courses()
 	int coursesChoice= show_read_menu(to_vector(coursesOverviews),header, backUp,true,true)-1;
 	if (coursesChoice == -1)
 		return; 
-	std::cout << user_courses[coursesChoice].all_info_student_string(users->get_currentuser_username()) << endl;
+	std::cout << user_courses[coursesChoice].doc_and_assignment_string(users->get_currentuser_username()) ;
+	//auto contents = user_courses[coursesChoice].get_assignments_contents();
+	//show_read_menu(contents, "Contents");
 	return course_choices(user_courses[coursesChoice]);
 	return list_courses(); 
 		

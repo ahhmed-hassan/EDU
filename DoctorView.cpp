@@ -150,9 +150,10 @@ void DoctorView::course_assignment_subList_from_course(Course const& course, Cou
 }
 void DoctorView::assignment_sublist(Course const& course, Assignment const& assignment)
 {
+	std::cout << assignment.doctor_detailed_view() << "\n";
 	while (true)
 	{
-		std::cout << assignment.doctor_detailed_view() << "\n";
+		
 		int assignmentMenuChoice = show_read_menu({ "Add Feedback","Add Degree","Return" });
 		std::string actionContent;
 
@@ -168,6 +169,10 @@ void DoctorView::assignment_sublist(Course const& course, Assignment const& assi
 		case 2:
 		{
 			std::cout << "Enter your Degree: \n"; cin >> actionContent;
+			while(std::stoi(actionContent)>assignment.get_total())
+			{
+				"Degree is bigger than the maximum possible points please try again\n"; std::cin >> actionContent;
+			}
 			courses->make_enum_based_action_on_course_assignment(course,assignment, actionContent, AssignmentAction::addDegree);
 
 			break;

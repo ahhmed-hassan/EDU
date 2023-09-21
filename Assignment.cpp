@@ -56,12 +56,12 @@ std::string Assignment::doctor_Overview() const
 
 	/*if (submitted)
 		res << "Solution is: " << solution<<"\n";*/
-	res << "and has the grade ";
+	//res << "and has the grade ";
 
 	if (grade.has_value())
-		res << grade.value();
+		res << "and has the grade "<<grade.value()<<" out of "<<total;
 	else
-		res << "NA";
+		res << "Not graded yet";
 
 	return res.str();
 }
@@ -69,7 +69,11 @@ std::string Assignment::doctor_Overview() const
 std::string Assignment::doctor_detailed_view() const
 {
 	std::ostringstream res{};
-	res << "Your Feedback is " << feedback<<"\n";
+	if (feedback.empty())
+		res << "You have not provided a feeback yet\n";
+	else
+		res << "Your Feedback is " << feedback << "\n";
+
 	res << "Student Solution: " << solution << endl;
 	return res.str(); 
 }
@@ -81,10 +85,7 @@ bool Assignment::is_graded() const
 
 
 
-void Assignment::set_id(const int id)
-{
-	this->assignmentId = id;
-}
+
 
 Assignment::Assignment
 (std::string_view content,
@@ -171,6 +172,11 @@ void Assignment::set_solution(std::string_view solution)
 	this->submitted = true;
 }
 
+std::string Assignment::get_solution() const
+{
+	return solution;
+}
+
 void Assignment::set_feedback(std::string_view feedback)
 {
 	this->feedback = feedback;
@@ -179,21 +185,21 @@ void Assignment::set_feedback(std::string_view feedback)
 std::string Assignment::all_info_student_string() const
 {
 	std::ostringstream res{};
-	res << "content: " << content << '\n';
+	res  << "content :"<<content << '\t';
 	if (!submitted)
 		res << " NOT";
 	res << " Submitted--";
 	if (!solution.empty())
-		res << "Your Solution is: "<<solution<<"\n";
+		res << "Your Solution is: "<<solution<<"\t";
 	if (!feedback.empty())
-		res << "Feedback is: " << feedback << "\n";
+		res << "Feedback is: " << feedback << "\t";
 
-	res << "degree is: ";
+	
 	if (not grade.has_value())
-		res << "NA";
+		res << "Not Graded yet";
 	else
-		res << grade.value();
-	res << "/" << total<<"\n";
+		res << "degree is: "<< grade.value() << "/" << total << "\n";
+	//res << "/" << total<<"\n";
 	
 	return (res.str());
 }

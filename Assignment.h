@@ -36,17 +36,17 @@ struct UsernameAndName
 class Assignment
 {
 private:
-	int assignmentId{};
+	//int assignmentId{};
 	std::string content{};
 	std::string feedback{};
 	std::string solution{};
-	std::string answer{};
+	//std::string answer{};
 	std::string studentUsername {};
 	std::string studentName{};
 	std::optional<double> grade{};
 	 int total{};
 	
-	int assignment_number{};
+	//int assignment_number{};
 	bool submitted{};
 	
 
@@ -59,7 +59,7 @@ public:
 
 	std::string get_student_username() const;
 	/*int get_courseId() const;*/
-	void set_id(const int id);//ToDo Make only the Course class can access this function. 
+	//void set_id(const int id);//ToDo Make only the Course class can access this function. 
 	void set_content(std::string_view content);
 	std::string get_content() const;
 	void set_grade(const int grade);
@@ -68,6 +68,7 @@ public:
 	int get_total() const;
 	std::pair<double, int> get_relative_grade()const;
 	void set_solution(std::string_view solution);
+	std::string get_solution() const;
 	void set_feedback(std::string_view feedback);
 	std::string all_info_student_string() const;
 	json get_json() const;

@@ -6,7 +6,7 @@
                 "Assignments": [
                     {
                         "content": "How deep is your love?",
-                        "feedback": "Nice!",
+                        "feedback": "Bravoo",
                         "grade": 35.0,
                         "isSubmitted": true,
                         "solution": "Very Very deep",
@@ -37,9 +37,9 @@
                     {
                         "content": "What is your fav programming Language? ",
                         "feedback": "",
-                        "grade": 10.0,
+                        "grade": null,
                         "isSubmitted": true,
-                        "solution": "C++",
+                        "solution": "Java",
                         "studentName": "ahmed",
                         "studentUsername": "aa",
                         "total": 10
@@ -47,6 +47,22 @@
                 ],
                 "content": "What is your fav programming Language? ",
                 "totalPoints": 10
+            },
+            {
+                "Assignments": [
+                    {
+                        "content": "How are you?",
+                        "feedback": "",
+                        "grade": null,
+                        "isSubmitted": false,
+                        "solution": "",
+                        "studentName": "ahmed",
+                        "studentUsername": "aa",
+                        "total": 5
+                    }
+                ],
+                "content": "How are you?",
+                "totalPoints": 5
             }
         ],
         "courseName": "Prog",
