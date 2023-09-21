@@ -165,6 +165,7 @@ std::pair<double, int> Assignment::get_relative_grade() const
 void Assignment::set_solution(std::string_view solution)
 {
 	this->solution = solution;
+	this->submitted = true;
 }
 
 void Assignment::set_feedback(std::string_view feedback)
@@ -185,7 +186,7 @@ std::string Assignment::all_info_student_string() const
 		res << "Feedback is: " << feedback << "\n";
 
 	res << "degree is: ";
-	if (grade.has_value())
+	if (not grade.has_value())
 		res << "NA";
 	else
 		res << grade.value();

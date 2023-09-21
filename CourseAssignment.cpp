@@ -27,8 +27,8 @@ CourseAssignment::CourseAssignment(json const& jsonCourseAssignment) :
 
 void CourseAssignment::add_student_entry(UsernameAndName const& usernameAndName)
 {
-	if (assignments.empty())
-		return;
+	//if (assignments.empty())
+	//	return;
 	assignments.emplace_back(content, totalPoints, usernameAndName);
 }
 

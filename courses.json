@@ -1,1 +1,32 @@
-null
+[
+    {
+        "code": "M",
+        "courseAssignments": [
+            {
+                "Assignments": [
+                    {
+                        "content": "How deep is your love?",
+                        "feedback": "Nice!",
+                        "grade": 35.0,
+                        "isSubmitted": true,
+                        "solution": "Very Very deep",
+                        "studentName": "ahmed",
+                        "studentUsername": "aa",
+                        "total": 40
+                    }
+                ],
+                "content": "How deep is your love?",
+                "totalPoints": 40
+            }
+        ],
+        "courseName": "Math",
+        "docName": "ahmed",
+        "docUsername": "ah",
+        "usernameAndNames": [
+            {
+                "name": "ahmed",
+                "username": "aa"
+            }
+        ]
+    }
+]

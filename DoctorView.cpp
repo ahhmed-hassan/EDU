@@ -127,9 +127,11 @@ void DoctorView::course_assignment_subList_from_course(Course const& course, Cou
 		const auto assignments = courseAssingment.get_assignments();
 		
 		auto assignmentsDoctoroverviews = assignments |
+			std::views::filter([](const Assignment& ass) {return ass.is_submitted(); }) |
 			std::views::transform([](const Assignment& ass) {return ass.doctor_Overview(); });
+			
 
-		std::string_view title{"All Assignments overview fot this assignment: "}, backUp = "No assignments in this course";
+		std::string_view title{"All Assignments overview fot this assignment: "}, backUp = "No submitted Assignments yet";
 		int assignmentChoice = show_read_menu(to_vector(assignmentsDoctoroverviews), title, backUp, true, true)-1;
 
 		if (assignmentChoice == -1)

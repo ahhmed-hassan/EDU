@@ -1,13 +1,17 @@
 [
     {
-        "coursesCodes": [],
+        "coursesCodes": [
+            "M"
+        ],
         "isDoctor": false,
         "name": "ahmed",
         "password": "J",
         "userName": "aa"
     },
     {
-        "coursesCodes": [],
+        "coursesCodes": [
+            "M"
+        ],
         "isDoctor": true,
         "name": "ahmed",
         "password": "J",

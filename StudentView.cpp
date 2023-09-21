@@ -36,11 +36,12 @@ void StudentView::assignment_subList(const Course& course,const Assignment& assi
 	while(true)
 	{
 		std::cout << "Enter 1 to add a solution or 0 to go back\n";
-		int choice = read_int(0, 1);
-		if (!choice)
+		int choice = show_read_menu({"add a solution", "go back"});
+		if (choice==2)
 			return;
 		std::cout << "Please Enter Your Solution\n";
 		std::string solution;
+		std::getline(std::cin, solution);
 		std::getline(std::cin, solution);
 		courses->make_enum_based_action_on_course_assignment(course, assignment, solution, AssignmentAction::addSolution);
 		std::cout << "You have added a new Solution!\n";
@@ -56,11 +57,15 @@ void StudentView::show_assignments_in_course(Course const& course)
 	int i{ 1 };
 	while (true)
 	{
-		for (const auto ass : studentAssignments)
+		/*for (const auto ass : studentAssignments)
 			std::cout << ass.all_info_student_string() << "\n";
 		std::cout << "choose the ith assignments or 0 to cancel";
-		int assignmentChoice = read_int(0, (int)studentAssignments.size()) - 1;
-		if (assignmentChoice < 0)
+		int assignmentChoice = read_int(0, (int)studentAssignments.size()) - 1;*/
+		auto assignmentsAllInfoStrings = studentAssignments |
+			std::views::transform([](const Assignment& ass) {return ass.all_info_student_string(); });
+		std::string_view header = "Your Assignments report", fallback = "You have no assignments";
+		int assignmentChoice = show_read_menu(to_vector(assignmentsAllInfoStrings), header, fallback, true, true);
+		if (assignmentChoice == -1)
 			return;
 
 		return assignment_subList(course, studentAssignments[assignmentChoice]);
@@ -132,9 +137,10 @@ void StudentView::register_in_course()
 {
 	std::cout << "Please Enter the code of the course in which you want to register\n"; std::string code{}; cin >> code;
 	auto courseOverview = courses->get_course_overview(code);
-	while (not courses->get_course_overview(code).has_value())
+	while (not courseOverview.has_value())
 	{
 		std::cout << "There is no course with this code please try again\n"; std::cin >> code; 
+		courseOverview = courses->get_course_overview(code);
 	}
 	std::cout << "Your chosen course\n" << courseOverview.value() << "\n"; 
 
@@ -174,7 +180,7 @@ void StudentView::unregister(Course const& course)
 void StudentView::view_courses()
 {
 	//std::cout<<"Choose the ith [1"<<
-	
+	return;
 	auto userCourses = courses->getUserCourses(users->get_current_user());
 	auto coursesOverviews = userCourses |
 		std::views::transform([](const Course& course) {return course.overview_string(); });
