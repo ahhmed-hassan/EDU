@@ -78,7 +78,7 @@ void StudentView::Display()
 	while (true)
 	{
 		int choice = show_read_menu(
-			{ "Register In Course", "List My Courses", "View Course","Grades Report",
+			{ "Register In Course", "List My Courses", "View system Course","Grades Report",
 			"Log Out" }
 		);
 		switch (choice)

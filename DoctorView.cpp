@@ -6,7 +6,7 @@ DoctorView::DoctorView(CourseManagerPtr cManger, UserManagerPtr uManger) :
 void DoctorView::Display() {
 	while(true)
 	{
-		int choice{ show_read_menu({"List Courses", "Add Courses", "View Courses", "LogOut"}) };
+		int choice{ show_read_menu({"List Courses", "Add Courses", "View system Courses", "LogOut"}) };
 		switch (choice)
 		{
 		case 1:
@@ -35,13 +35,13 @@ void DoctorView:: log_out()
 	users->save_data_to_json();
 	courses->save_data_to_json();
 }
-void DoctorView:: list_courses()
+void DoctorView:: view_courses()
 {
 	std::string_view header = "System Courses", fallBack = "No Courses yet";
 	show_read_menu(courses->get_all_courses_overview(), header, fallBack, false, false);
 }
 
-void DoctorView:: view_courses()
+void DoctorView:: list_courses()
 {
 	
 	while(true)
@@ -54,13 +54,7 @@ void DoctorView:: view_courses()
 		
 		std::string_view header = "Your Courses are: ", backUp = "You have no Courses";
 		int courseChoice= show_read_menu(to_vector(doctorCoursesOverviews), header,backUp, true, true) - 1;
-		/*int i = 1;
-		for (const auto& course : doctorCourses)
-		{
-			cout << i << "- " << course.overview_string() << "\n";
-		}
-		std::cout << "choose course num or 0 to go back\n";
-		int courseChoice = read_int(0, (int)doctorCourses.size()) - 1;*/
+
 
 		if (courseChoice ==-1)
 			return;

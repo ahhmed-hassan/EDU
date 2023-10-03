@@ -78,8 +78,8 @@ void UserManager::Signup() {
 	//UpdateDataBase(current_user);
 }
 void UserManager::UpdateDataBase(const User& user) {
-	std::string line = user.to_string();
-	WriteFileLines("users.txt", {line});
+	//std::string line = user.to_string();
+	//WriteFileLines("users.txt", {line});
 }
 
 void UserManager::unregister_student_from_course(User const& student, std::string_view courseCode)
