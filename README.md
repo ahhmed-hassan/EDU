@@ -1,5 +1,5 @@
 # EDU
-##Overview
+## Overview
 Console Application program representing a system that has the following properties : 
 1. The system can have a professors or students as users
 2. The professor can add new Courses, view all courses on the system and list his courses
